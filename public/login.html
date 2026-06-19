@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acceso Interno | Azulemex</title>
+    <!-- CSS -->
+    <link rel="stylesheet" href="/css/login.css">
+    <link rel="stylesheet" href="/css/toast.css">
+    <!-- Fuente / favicon -->
+    <link rel="shortcut icon" href="img/azulemex-logo-sinfondo.png" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body class="bg-login">
+
+    <div class="login-container">
+        <div class="login-card">
+            <img src="img/azulemex-nuevo-sf.png" alt="Azulemex" class="logo">
+
+            <h1>Logística Azulemex</h1>
+            <p class="subtitle">Iniciar Sesión.</p>
+
+            <form id="loginForm">
+                <div class="field-row">
+                    <div class="icon-box">
+                        <img src="img/usuarioPink.png" alt="Usuario o correo">
+                    </div>
+                    <input id="loginInput" type="text" placeholder="Usuario o correo" autocomplete="username" required>
+                </div>
+
+                <div class="field-row">
+                    <div class="icon-box">
+                        <img src="img/passwordPink.png" alt="Contraseña">
+                    </div>
+                    <input id="password" type="password" placeholder="Contraseña" autocomplete="current-password" required>
+                </div>
+
+                <div class="forgot">
+                    <a href="#" id="forgotPasswordBtn">¿Olvidaste tu contraseña?</a>
+                </div>
+
+                <button class="btn-login-form" type="submit">Iniciar sesión</button>
+            </form>
+
+            <div class="divider">Acceso exclusivo para personal autorizado</div>
+
+            <div class="login-note">
+                <i class="fas fa-shield-alt"></i>
+                <span>Admins ingresan con correo. Operativos y oficiales con usuario.</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal alerta -->
+    <div id="alertaPersonalizada" class="modal-overlay-login">
+        <div class="modal-box-login">
+            <div class="modal-icon-login">🔔</div>
+            <h3 id="alertaTitulo">Atención</h3>
+            <p id="alertaMensaje">Mensaje de alerta</p>
+            <button id="btnCerrarAlerta" class="btn-modal-login">Entendido</button>
+        </div>
+    </div>
+    <script src="/js/toast.js"></script>
+    <script src="/js/login.js"></script>
+</body>
+</html>
+``

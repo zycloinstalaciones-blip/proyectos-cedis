@@ -1,0 +1,123 @@
+{
+  "admin_01": {
+    "correo": "admin@azulemex.com",
+    "password": "PasswordAdmin123",
+    "nombre": "Administrador Principal",
+    "rol": "admin",
+    "puesto": "Administrador"
+  },
+  "admin_02": {
+    "correo": "marco.chacon@azulemex.com",
+    "password": "Marco#2026",
+    "nombre": "Marco Chacon",
+    "rol": "admin",
+    "puesto": "Administrador"
+  },
+  "admin_03": {
+    "correo": "fabian.vidal@azulemex.com",
+    "password": "Administrativo3#2026",
+    "nombre": "Fabián Vidal Vargas",
+    "rol": "admin",
+    "puesto": "Gerente Cedis 99 Tlalnepantla"
+  },
+  "admin_04": {
+    "correo": "gustavo.rios@azulemex.com",
+    "password": "Administrativo4#2026",
+    "nombre": "Gustavo Rios Ruiz",
+    "rol": "admin",
+    "puesto": "Subgerente Cedis 99 Tlalnepantla"
+  },
+  "admin_05": {
+    "correo": "angel.hernandez@azulemex.com",
+    "password": "Administrativo5#2026",
+    "nombre": "Angel Hernández Valenzuela",
+    "rol": "admin",
+    "puesto": "Jefe Administrativo Traspasos"
+  },
+  "admin_06": {
+    "correo": "renato.lopez@azulemex.com",
+    "password": "Administrativo6#2026",
+    "nombre": "Renato Lopez Pineda",
+    "rol": "admin",
+    "puesto": "Auxiliar Administrativo"
+  },
+  "operativo_01": {
+    "usuario": "operativo_01",
+    "password": "Operativo1#2026",
+    "nombre": "Ivan Gonzalez Jurado",
+    "rol": "operativo",
+    "puesto": "Jefatura Recibo Entradas"
+  },
+  "operativo_02": {
+    "usuario": "operativo_02",
+    "password": "Operativo2#2026",
+    "nombre": "Ricardo Enrique Romero Gutierrez",
+    "rol": "operativo",
+    "puesto": "Jefatura Área Mezzanine"
+  },
+  "operativo_03": {
+    "usuario": "operativo_03",
+    "password": "Operativo3#2026",
+    "nombre": "Joel de Jesús León Rendón",
+    "rol": "operativo",
+    "puesto": "Jefatura Área Baños"
+  },
+  "operativo_04": {
+    "usuario": "operativo_04",
+    "password": "Operativo4#2026",
+    "nombre": "Carlos Alberto Buendia Ruiz",
+    "rol": "operativo",
+    "puesto": "Jefe de Operaciones"
+  },
+  "operativo_05": {
+    "usuario": "operativo_05",
+    "password": "Operativo5#2026",
+    "nombre": "Alejandro Antonio Ruiz",
+    "rol": "operativo",
+    "puesto": "Jefatura Área Traspasos"
+  },
+  "operativo_06": {
+    "usuario": "operativo_06",
+    "password": "Operativo6#2026",
+    "nombre": "Enrique Duran Severino",
+    "rol": "operativo",
+    "puesto": "Segundo Área Baños"
+  },
+  "operativo_07": {
+    "usuario": "operativo_07",
+    "password": "Operativo7#2026",
+    "nombre": "Manuel Vargas",
+    "rol": "operativo",
+    "puesto": "Jefatura Área ATNA"
+  },
+  "oficial_01": {
+    "usuario": "oficial_01",
+    "password": "Oficial1#2026",
+    "nombre": "Jaime",
+    "rol": "oficial",
+    "puesto": "Oficial de recibo"
+  },
+  "oficial_02": {
+    "usuario": "oficial_02",
+    "password": "Oficial2#2026",
+    "nombre": "Oficial Cortinas 5y6",
+    "rol": "oficial",
+    "puesto": "Oficial Cortinas 5y6"
+  },
+  "registro_01": {
+    "usuario": "registro_01",
+    "password": "Registro1#2026",
+    "nombre": "Registro Operadores",
+    "rol": "registro_operadores",
+    "puesto": "Registro de operadores"
+  },
+  "externo_01": {
+    "usuario": "externo_01",
+    "password": "Externo1#2026",
+    "nombre": "Pantalla Externa",
+    "rol": "externo",
+    "puesto": "Monitor Externo"
+  }
+}
+
+

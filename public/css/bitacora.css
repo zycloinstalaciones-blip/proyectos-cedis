@@ -1,0 +1,886 @@
+/* =========================================
+   VARIABLES
+========================================= */
+:root {
+    --primary: #005baa;
+    --primary-light: #1d4ed8;
+    --pink: #E91E63;
+    --success: #16a34a;
+    --warning: #d97706;
+    --danger: #dc2626;
+    --bg: #f4f6f9;
+    --surface: #ffffff;
+    --surface-soft: #f8fafc;
+    --border: #dbe4ee;
+    --text-main: #0f172a;
+    --text-soft: #64748b;
+    --shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background: var(--bg);
+    font-family: 'Poppins', sans-serif;
+    color: var(--text-main);
+}
+
+/* =========================================
+   CONTENEDOR PRINCIPAL
+========================================= */
+.bitacora-container {
+    max-width: 1400px;
+    margin: 18px auto 0;
+    padding: 0 20px 28px;
+}
+
+/* =========================================
+   TOPBAR
+========================================= */
+.bitacora-topbar {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    box-shadow: var(--shadow);
+    padding: 20px 22px;
+    margin-bottom: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 18px;
+    flex-wrap: wrap;
+    border-left: 5px solid var(--pink);
+}
+
+.topbar-left {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.topbar-title {
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: var(--primary);
+    line-height: 1.15;
+    margin: 0;
+}
+
+.topbar-subtitle {
+    font-size: 0.9rem;
+    color: var(--text-soft);
+    font-weight: 500;
+    margin: 0;
+}
+
+.topbar-right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+/* =========================================
+   META CARD
+========================================= */
+.header-meta-card {
+    background: var(--surface-soft);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 12px 14px;
+    min-width: 200px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.meta-label {
+    font-size: 0.76rem;
+    color: var(--text-soft);
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.7px;
+    margin: 0;
+}
+
+.header-meta-card input {
+    border: 1px solid #cbd5e1;
+    border-radius: 10px;
+    padding: 10px 12px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.9rem;
+    outline: none;
+    background: #fff;
+    color: var(--text-main);
+}
+
+.header-meta-card input:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(0, 91, 170, 0.10);
+}
+
+/* =========================================
+   TOOLBAR
+========================================= */
+.toolbar {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    box-shadow: var(--shadow);
+    padding: 16px 18px;
+    display: flex;
+    justify-content: space-between;
+    gap: 14px;
+    flex-wrap: wrap;
+    margin-bottom: 16px;
+}
+
+.toolbar-left,
+.toolbar-right {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.toolbar-left input,
+.toolbar-left select {
+    padding: 11px 12px;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.9rem;
+    outline: none;
+    background: white;
+}
+
+.toolbar-left input {
+    min-width: 280px;
+}
+
+.toolbar-left input:focus,
+.toolbar-left select:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(0, 91, 170, 0.10);
+}
+
+.btn-toolbar {
+    border: none;
+    border-radius: 12px;
+    padding: 11px 15px;
+    font-weight: 700;
+    cursor: pointer;
+    font-family: 'Poppins', sans-serif;
+    transition: 0.18s ease;
+    font-size: 0.9rem;
+}
+
+.btn-toolbar:hover {
+    transform: translateY(-1px);
+}
+
+.btn-primary {
+    background: linear-gradient(90deg, var(--primary), var(--primary-light));
+    color: #fff;
+}
+
+.btn-secondary {
+    background: #e2e8f0;
+    color: #0f172a;
+}
+
+/* =========================================
+   RESUMEN / KPIs
+========================================= */
+.resumen-bar {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 18px;
+}
+
+.resumen-pill {
+    background: white;
+    border-radius: 16px;
+    box-shadow: var(--shadow);
+    padding: 14px 18px;
+    min-width: 160px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    border: 1px solid var(--border);
+}
+
+.pill-label {
+    font-size: 0.78rem;
+    color: var(--text-soft);
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+}
+
+.pill-value {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--text-main);
+    line-height: 1;
+}
+
+.resumen-total {
+    border-left: 5px solid var(--primary);
+}
+
+.resumen-pendiente {
+    border-left: 5px solid var(--warning);
+}
+
+.resumen-finalizada {
+    border-left: 5px solid var(--success);
+}
+
+/* =========================================
+   TABLA
+========================================= */
+.tabla-wrapper {
+    background: white;
+    border-radius: 20px;
+    box-shadow: var(--shadow);
+    overflow: auto;
+    border: 1px solid var(--border);
+}
+
+.tabla-bitacora {
+    border-collapse: collapse;
+    min-width: 1000px;
+    width: 100%;
+}
+
+.tabla-bitacora thead th {
+    position: sticky;
+    top: 0;
+    background: linear-gradient(90deg, #1e3a8a, #005baa);
+    color: white;
+    font-size: 0.82rem;
+    font-weight: 700;
+    padding: 13px 8px;
+    border: 1px solid #1e40af;
+    text-align: center;
+    z-index: 2;
+}
+
+.tabla-bitacora td {
+    border: 1px solid #e5e7eb;
+    padding: 10px 8px;
+    font-size: 0.82rem;
+    vertical-align: middle;
+    background: white;
+}
+
+.tabla-bitacora tbody tr:hover td {
+    background: #f8fbff;
+}
+
+.celda-centro {
+    text-align: center;
+}
+
+.celda-auto {
+    font-weight: 600;
+    color: #111827;
+}
+
+.celda-operador {
+    min-width: 150px;
+    font-weight: 600;
+}
+
+.celda-proveedor {
+    min-width: 150px;
+}
+
+.celda-folio {
+    min-width: 120px;
+    font-family: monospace;
+    font-weight: 700;
+    color: #be185d;
+}
+
+/* =========================================
+   FILAS SEGÚN ESTADO
+========================================= */
+.fila-bitacora-pendiente td {
+    background: #fffdf3;
+}
+
+.fila-bitacora-finalizada td {
+    background: #f0fdf4;
+}
+
+/* =========================================
+   BADGES
+========================================= */
+.badge-mini {
+    display: inline-block;
+    padding: 4px 8px;
+    border-radius: 999px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+.badge-bitacora-pendiente {
+    background: #fef3c7;
+    color: #92400e;
+}
+
+.badge-bitacora-finalizada {
+    background: #dcfce7;
+    color: #166534;
+}
+
+/* =========================================
+   BOTONES EN TABLA
+========================================= */
+.acciones-tabla {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.btn-fila {
+    border: none;
+    border-radius: 8px;
+    padding: 8px 10px;
+    font-size: 0.76rem;
+    font-weight: 700;
+    cursor: pointer;
+    font-family: 'Poppins', sans-serif;
+    white-space: nowrap;
+}
+
+.btn-editar {
+    background: #e2e8f0;
+    color: #0f172a;
+}
+
+.btn-finalizar {
+    background: linear-gradient(90deg, var(--primary), var(--primary-light));
+    color: white;
+}
+
+.btn-ver {
+    background: #64748b;
+    color: white;
+}
+
+.btn-fila:hover {
+    opacity: 0.9;
+}
+
+.subnota-fila {
+    display: block;
+    margin-top: 4px;
+    font-size: 0.72rem;
+    color: var(--text-soft);
+    font-weight: 600;
+}
+
+.mensaje-vacio {
+    text-align: center;
+    padding: 30px;
+    color: #64748b;
+    font-weight: 600;
+}
+
+/* =========================================
+   MODAL
+========================================= */
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(15, 23, 42, 0.55);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+    padding: 16px;
+    overflow-y: auto;
+}
+
+.modal-overlay.activo {
+    display: flex;
+}
+
+.modal-card {
+    background: white;
+    width: 100%;
+    max-width: 760px;
+    border-radius: 22px;
+    box-shadow: 0 24px 48px rgba(15, 23, 42, 0.22);
+    overflow: hidden;
+}
+
+.modal-header {
+    padding: 18px 22px;
+    border-bottom: 1px solid #e5e7eb;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 12px;
+    background: #f8fafc;
+}
+
+.modal-kicker {
+    margin: 0 0 4px 0;
+    font-size: 0.76rem;
+    color: #64748b;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.7px;
+}
+
+.modal-title {
+    margin: 0;
+    font-size: 1.2rem;
+    color: #0f172a;
+    font-weight: 800;
+}
+
+.btn-cerrar-modal {
+    border: none;
+    background: transparent;
+    font-size: 1.4rem;
+    cursor: pointer;
+    color: #64748b;
+    padding: 0;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-cerrar-modal:hover {
+    color: #ef4444;
+}
+
+.modal-body {
+    padding: 20px 22px;
+    max-height: 60vh;
+    overflow-y: auto;
+}
+
+.modal-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+}
+
+.campo {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.campo-full {
+    grid-column: 1 / -1;
+}
+
+.campo label {
+    font-size: 0.86rem;
+    font-weight: 700;
+    color: #475569;
+}
+
+.campo input,
+.campo select,
+.campo textarea {
+    border: 1px solid #cbd5e1;
+    border-radius: 10px;
+    padding: 11px 12px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.9rem;
+    outline: none;
+    background: white;
+}
+
+.campo textarea {
+    resize: vertical;
+    min-height: 80px;
+}
+
+.campo input:focus,
+.campo select:focus,
+.campo textarea:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(0, 91, 170, 0.10);
+}
+
+.readonly-inline {
+    border: 1px solid #dbe4ee;
+    border-radius: 10px;
+    padding: 11px 12px;
+    background: #f8fafc;
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: #0f172a;
+}
+
+.modal-info-mini {
+    margin-top: 16px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding-top: 14px;
+    border-top: 1px dashed #dbe4ee;
+}
+
+.info-chip {
+    background: #f8fafc;
+    border: 1px solid #dbe4ee;
+    border-radius: 999px;
+    padding: 8px 12px;
+    font-size: 0.8rem;
+    color: #334155;
+    font-weight: 600;
+}
+
+.modal-footer {
+    padding: 16px 22px 22px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    background: white;
+    border-top: 1px solid #e5e7eb;
+}
+
+.btn-modal {
+    border: none;
+    border-radius: 10px;
+    padding: 12px 16px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    cursor: pointer;
+    font-size: 0.9rem;
+}
+
+.btn-secundario {
+    background: #e2e8f0;
+    color: #0f172a;
+}
+
+.btn-primario {
+    background: linear-gradient(90deg, var(--primary), var(--primary-light));
+    color: white;
+}
+
+.btn-modal:hover {
+    opacity: 0.9;
+}
+
+/* =========================================
+   RESPONSIVE - TABLET
+========================================= */
+@media (max-width: 1024px) {
+    .bitacora-container {
+        padding: 0 14px 24px;
+    }
+
+    .bitacora-topbar {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .toolbar {
+        flex-direction: column;
+    }
+
+    .toolbar-left,
+    .toolbar-right {
+        width: 100%;
+    }
+
+    .toolbar-left input {
+        width: 100%;
+        min-width: auto;
+    }
+
+    .toolbar-left select {
+        min-width: 100px;
+    }
+
+    .toolbar-right {
+        justify-content: flex-start;
+    }
+
+    .btn-toolbar {
+        flex: 1;
+        min-width: 100px;
+    }
+
+    .topbar-title {
+        font-size: 1.1rem;
+    }
+
+    .modal-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .tabla-bitacora {
+        min-width: 800px;
+    }
+
+    .tabla-bitacora th,
+    .tabla-bitacora td {
+        padding: 8px 6px;
+        font-size: 0.75rem;
+    }
+}
+
+/* =========================================
+   RESPONSIVE - MÓVIL
+========================================= */
+@media (max-width: 768px) {
+    body {
+        padding: 0;
+    }
+
+    .bitacora-container {
+        padding: 0 12px 20px;
+        margin: 10px auto 0;
+    }
+
+    .bitacora-topbar {
+        flex-direction: column;
+        align-items: stretch;
+        padding: 14px 16px;
+        gap: 12px;
+    }
+
+    .topbar-title {
+        font-size: 1rem;
+    }
+
+    .topbar-subtitle {
+        font-size: 0.8rem;
+    }
+
+    .topbar-right {
+        width: 100%;
+    }
+
+    .header-meta-card {
+        width: 100%;
+    }
+
+    .toolbar {
+        flex-direction: column;
+        padding: 12px 14px;
+        gap: 10px;
+    }
+
+    .toolbar-left,
+    .toolbar-right {
+        width: 100%;
+        flex-direction: column;
+    }
+
+    .toolbar-left input {
+        width: 100%;
+        min-width: auto;
+    }
+
+    .toolbar-left select {
+        width: 100%;
+    }
+
+    .btn-toolbar {
+        width: 100%;
+    }
+
+    .resumen-bar {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .resumen-pill {
+        width: 100%;
+    }
+
+    /* Ocultar columnas en móvil */
+    .tabla-bitacora th:nth-child(3),
+    .tabla-bitacora td:nth-child(3),
+    .tabla-bitacora th:nth-child(4),
+    .tabla-bitacora td:nth-child(4),
+    .tabla-bitacora th:nth-child(5),
+    .tabla-bitacora td:nth-child(5) {
+        display: none;
+    }
+
+    .tabla-bitacora {
+        min-width: 100%;
+    }
+
+    .tabla-bitacora th,
+    .tabla-bitacora td {
+        padding: 8px 4px;
+        font-size: 0.7rem;
+    }
+
+    .celda-operador,
+    .celda-proveedor,
+    .celda-folio {
+        min-width: auto;
+    }
+
+    .btn-fila {
+        padding: 6px 8px;
+        font-size: 0.7rem;
+    }
+
+    .modal-card {
+        max-width: 100%;
+        border-radius: 16px;
+    }
+
+    .modal-header {
+        padding: 14px 16px;
+    }
+
+    .modal-body {
+        padding: 14px 16px;
+        max-height: 70vh;
+    }
+
+    .modal-grid {
+        gap: 10px;
+    }
+
+    .campo input,
+    .campo select,
+    .campo textarea {
+        padding: 10px;
+        font-size: 0.85rem;
+    }
+
+    .modal-footer {
+        padding: 12px 16px 16px;
+        gap: 8px;
+    }
+
+    .btn-modal {
+        padding: 10px 12px;
+        font-size: 0.8rem;
+        flex: 1;
+    }
+
+    .nav-title-main,
+    .nav-title-sub {
+        display: none;
+    }
+
+    .logoimg {
+        max-width: 100px;
+    }
+}
+
+/* =========================================
+   RESPONSIVE - EXTRA PEQUEÑO
+========================================= */
+@media (max-width: 480px) {
+    .bitacora-container {
+        padding: 0 10px 16px;
+    }
+
+    .resumen-pill {
+        display: none;
+    }
+
+    .header-meta-card {
+        max-width: 15%;
+    }
+
+    .topbar-title {
+        font-size: 0.9rem;
+    }
+
+    .topbar-subtitle {
+        font-size: 0.7rem;
+    }
+
+    .toolbar {
+        padding: 10px 12px;
+    }
+
+    .pill-value {
+        font-size: 1.2rem;
+    }
+
+    .pill-label {
+        font-size: 0.7rem;
+    }
+
+    .tabla-bitacora th:nth-child(2),
+    .tabla-bitacora td:nth-child(2),
+    .tabla-bitacora th:nth-child(9),
+    .tabla-bitacora td:nth-child(9) {
+        display: none;
+    }
+
+    .tabla-bitacora th,
+    .tabla-bitacora td {
+        padding: 6px 3px;
+        font-size: 0.65rem;
+    }
+
+    .btn-fila {
+        padding: 5px 6px;
+        font-size: 0.65rem;
+    }
+
+    .btn-toolbar {
+        padding: 8px 10px;
+        font-size: 0.75rem;
+    }
+}
+
+/* =========================================
+   PRINT
+========================================= */
+@media print {
+    .toolbar,
+    .resumen-bar,
+    .modal-overlay,
+    .btn-fila,
+    .btn-toolbar,
+    .navbar,
+    .overlay,
+    .side-menu {
+        display: none !important;
+    }
+
+    .tabla-wrapper {
+        overflow: visible;
+        box-shadow: none;
+    }
+
+    .tabla-bitacora {
+        min-width: auto;
+    }
+
+    .tabla-bitacora thead th {
+        position: static;
+    }
+
+    body {
+        padding: 0;
+    }
+
+    .bitacora-container {
+        margin: 0;
+        padding: 20px;
+    }
+}

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Monitor de Descargas | Azulemex</title>
+    <!-- CSS -->
+    <link rel="stylesheet" href="/css/monitor.css">
+    <!-- Fuente / favicon -->
+    <link rel="shortcut icon" href="img/azulemex-logo-sinfondo.png" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- TOPBAR -->
+<div class="topbar">
+    <div class="brand-section">
+        <img src="/img/azulemex-nuevo-sf.png" alt="Azulemex" class="logo">
+        <p class="brand-subtitle">Centro de Distribución · Monitoreo Operativo</p>
+    </div>
+
+    <div class="status-bar">
+        <div class="status-card">
+            <div class="status-icon status-icon-fecha">📅</div>
+            <div class="status-content">
+                <span class="status-label">Fecha</span>
+                <span class="status-value" id="fechaActual"></span>
+            </div>
+        </div>
+
+        <div class="status-card">
+            <div class="status-icon status-icon-hora">🕒</div>
+            <div class="status-content">
+                <span class="status-label">Hora</span>
+                <span class="status-value" id="horaActual"></span>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <!-- KPI GRID -->
+    <div class="kpi-grid">
+        <div class="kpi-card">
+            <div class="kpi-icon-box kpi-icon-azul">⏳</div>
+            <div class="kpi-content">
+                <span class="kpi-label">En Espera</span>
+                <span class="kpi-value" id="kpiEspera">0</span>
+                <span class="kpi-subtext">Unidades</span>
+            </div>
+        </div>
+
+        <div class="kpi-card">
+            <div class="kpi-icon-box kpi-icon-verde">⬇</div>
+            <div class="kpi-content">
+                <span class="kpi-label">En Descarga</span>
+                <span class="kpi-value" id="kpiDescarga">0</span>
+                <span class="kpi-subtext">Unidades</span>
+            </div>
+        </div>
+
+        <div class="kpi-card">
+            <div class="kpi-icon-box kpi-icon-morado">🏭</div>
+            <div class="kpi-content">
+                <span class="kpi-label">Andenes Ocupados</span>
+                <span class="kpi-value" id="kpiAndenes">0/4</span>
+                <span class="kpi-subtext">Andenes</span>
+            </div>
+        </div>
+
+        <div class="kpi-card">
+            <div class="kpi-icon-box kpi-icon-naranja">🕘</div>
+            <div class="kpi-content">
+                <span class="kpi-label">Promedio Descarga</span>
+                <span class="kpi-value" id="kpiPromedio">0m</span>
+                <span class="kpi-subtext">Tiempo promedio</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- COLUMNAS -->
+    <div class="contenedor-columnas">
+        <div>
+            <div class="columna-header">EN FILA</div>
+            <div id="lista-citados"></div>
+        </div>
+
+        <div>
+            <div class="columna-header">SIGUIENTE A RAMPA</div>
+            <div id="lista-prepararse"></div>
+        </div>
+
+        <div>
+            <div class="columna-header">OPERACIÓN ACTIVA</div>
+            <div id="lista-nocitados"></div>
+        </div>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/js/shared-ui-config.js"></script>
+    <script src="/js/shared-status-config.js"></script>
+    <script src="/js/monitor.js"></script>
+</body>
+</html>

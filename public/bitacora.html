@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bitácora de Entradas y Salidas </title>
+    <!-- CSS -->
+    <link rel="stylesheet" href="/css/bitacora.css">
+    <link rel="stylesheet" href="/css/navbar.css">
+    <link rel="stylesheet" href="/css/toast.css">
+    <!-- Fuente / favicon -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="shortcut icon" href="img/azulemex-logo-sinfondo.png" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- ================= NAVBAR ================= -->
+    <header class="navbar">
+        <div class="container nav centered-nav">
+
+            <!-- Logo -->
+            <div class="nav-logo">
+                <img src="/img/azulemex-nuevo-sf.png" alt="Azulemex" class="logoimg grande">
+            </div>
+
+            <!-- Texto central -->
+            <div class="nav-title-confirmacion center-text">
+                <span class="nav-title-main" data-nav-title>Bitácora de Entradas y Salidas CEDIS</span>
+                <span class="nav-title-sub">Control diario de bitácoras</span>
+            </div>
+
+            <!-- Botón hamburguesa -->
+            <button class="hamburger" id="menuToggle" aria-label="Menú" data-usuario-privado>
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Overlay -->
+    <div class="overlay" id="overlay"></div>
+
+    <!-- Menú lateral derecho -->
+    <aside class="side-menu right" id="sideMenu">
+        <div class="menu-header">
+            <h3>Menú</h3>
+            <button class="close-btn" id="closeMenu2">✕</button>
+        </div>
+
+        <div class="menu-user-block" data-usuario-privado>
+            <span class="menu-user-name" data-usuario-nombre>Usuario</span>
+            <span class="menu-user-role" data-usuario-puesto>Puesto</span>
+        </div>
+
+        <nav class="menu-links" id="menuLinks">
+            <!-- JS construye links según rol -->
+        </nav>
+
+        <div class="menu-footer" data-usuario-privado>
+            <button class="logout-btn" type="button" id="logoutBtn">Cerrar sesión</button>
+        </div>
+    </aside>
+
+    <!-- ================= CONTENIDO ================= -->
+    <div class="bitacora-container">
+
+        <!-- Encabezado interno -->
+    <section class="bitacora-topbar compacta">
+        <div class="header-meta-card fecha-card">
+            <span class="meta-label">Fecha de operación</span>
+            <input type="date" id="filtroFechaBitacora">
+        </div>
+
+        <div class="resumen-pill resumen-total">
+            <span class="pill-label">Filas</span>
+            <span class="pill-value" id="resTotal">0</span>
+        </div>
+
+        <div class="resumen-pill resumen-pendiente">
+            <span class="pill-label">Pendientes</span>
+            <span class="pill-value" id="resPendiente">0</span>
+        </div>
+
+        <div class="resumen-pill resumen-finalizada">
+            <span class="pill-label">Finalizadas</span>
+            <span class="pill-value" id="resFinalizada">0</span>
+        </div>
+    </section>
+
+        <!-- Filtros y acciones -->
+        <section class="toolbar">
+            <div class="toolbar-left">
+            <input type="text" id="busquedaBitacora" placeholder="🔍 Buscar operador, proveedor, placas, folio...">
+            <select id="filtroEstadoBitacora">
+                <option value="todos">Todos los estados</option>
+                <option value="PENDIENTE">Pendientes</option>
+                <option value="FINALIZADA">Finalizadas</option>
+            </select>
+        </div>
+
+            <div class="toolbar-right">
+                <button class="btn-toolbar btn-primary" id="btnActualizarBitacora">🔄 Actualizar</button>
+                <button class="btn-toolbar btn-secondary" id="btnHoyBitacora">📍 Hoy</button>
+                <button class="btn-toolbar btn-secondary" id="btnImprimirBitacora">🖨️ Imprimir</button>
+            </div>
+        </section>
+        <!-- Tabla -->
+        <section class="tabla-wrapper">
+            <table class="tabla-bitacora">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Llegó</th>
+                        <th>Cita</th>
+                        <th>Entró</th>
+                        <th>Salió</th>
+                        <th>Operador</th>
+                        <th>Placas</th>
+                        <th>Proveedor</th>
+                        <th>Entrada compra</th>
+                        <th>Acción</th>
+                    </tr>
+                </thead>
+                <tbody id="tablaBitacoraBody">
+                    <!-- JS -->
+                </tbody>
+            </table>
+        </section>
+    </div>
+    <!-- ================= MODAL ================= -->
+    <div id="modalBitacora" class="modal-overlay">
+        <div class="modal-card">
+            <div class="modal-header">
+                <div>
+                    <p class="modal-kicker" id="modalTurnoKicker">Turno</p>
+                    <h3 class="modal-title" id="modalTurnoTitulo">Bitácora de salida</h3>
+                </div>
+                <button class="btn-cerrar-modal" id="btnCerrarModalBitacora">✕</button>
+            </div>
+
+            <div class="modal-body">
+                <input type="hidden" id="modalTurnoId">
+                <input type="hidden" id="modalModoAccion">
+                <input type="hidden" id="modalEstadoActual">
+
+                <div class="modal-grid">
+
+                    <div class="campo campo-full readonly-box">
+                        <label>Cantidad reportada</label>
+                        <div class="readonly-value" id="modalCantidadReportada">-</div>
+                    </div>
+
+                    <div class="campo">
+                        <label>Responsable del recibo</label>
+                        <select id="modalResponsableRecibo">
+                            <option value="">Selecciona...</option>
+                            <option value="RICARDO ENRIQUE ROMERO GUTIERREZ">RICARDO ENRIQUE ROMERO GUTIERREZ</option>
+                            <option value="JOEL DE JESÚS LEÓN RENDON">JOEL DE JESÚS LEÓN RENDON</option>
+                            <option value="ENRIQUE DURAN SEVERINO">ENRIQUE DURAN SEVERINO</option>
+                            <option value="IVAN GONZALEZ JURADO">IVAN GONZALEZ JURADO</option>
+                            <option value="CARLOS ALBERTO BUENDIA RUIZ">CARLOS ALBERTO BUENDIA RUIZ</option>
+                            <option value="ALEJANDRO ANTONIO RUIZ">ALEJANDRO ANTONIO RUIZ</option>
+                        </select>
+                    </div>
+
+                    <div class="campo">
+                        <label>Estado actual</label>
+                        <div class="readonly-inline" id="modalEstadoVisible">PENDIENTE</div>
+                    </div>
+
+                    <div class="campo">
+                        <label>Cantidad ingreso</label>
+                        <input type="number" min="0" id="modalCantidadIngreso" placeholder="Tarimas al ingresar">
+                    </div>
+
+                    <div class="campo">
+                        <label>Cantidad salida</label>
+                        <input type="number" min="0" id="modalCantidadSalida" placeholder="Tarimas al salir">
+                    </div>
+
+                    <div class="campo" id="campoConceptoWrapper">
+                        <label>Concepto</label>
+                        <select id="modalConcepto">
+                            <option value="">Selecciona una opción...</option>
+                            <option value="SALIDA_OTRO_CLIENTE">Salida para otro cliente</option>
+                            <option value="DEVOLUCION_COMPRA">Devolución Compra</option>
+                            <option value="OTRA">Otra</option>
+                        </select>
+                    </div>
+
+                    <div class="campo" id="campoNoDevWrapper">
+                        <label id="modalNoDevLabel">No Dev</label>
+                        <input type="text" id="modalNoDev" placeholder="Dato complementario">
+                    </div>
+
+                    <div class="campo campo-full" id="campoObservacionesWrapper">
+                        <label>Observaciones</label>
+                        <textarea id="modalObservaciones" rows="4" placeholder="Observaciones del registro..."></textarea>
+                    </div>
+                </div>
+
+                <div class="modal-info-mini" id="modalInfoMini">
+                    <!-- Datos rápidos -->
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn-modal btn-secundario" id="btnGuardarModalBitacora">Guardar cambios</button>
+                <button class="btn-modal btn-primario" id="btnFinalizarModalBitacora">Finalizar registro</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/js/navbar.js"></script>
+    <script src="/js/toast.js"></script>
+    <script src="/js/bitacora.js"></script>
+</body>
+</html>

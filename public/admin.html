@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Control | Operación</title>
+    <!-- CSS -->
+    <link rel="stylesheet" href="/css/admin_unificado_limpio.css">
+    <link rel="stylesheet" href="/css/admin_unificado_patch_v3.css">
+    <link rel="stylesheet" href="/css/navbar.css">
+    <link rel="stylesheet" href="/css/toast.css">
+    <!-- Fuente / favicon -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="shortcut icon" href="img/azulemex-logo-sinfondo.png" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- ================= NAVBAR ================= -->
+<header class="navbar">
+  <div class="container nav">
+
+    <!-- Logo -->
+    <div class="nav-logo">
+      <img src="/img/azulemex-nuevo-sf.png" alt="Azulemex" class="logoimg">
+    </div>
+
+    <!-- Texto central -->
+    <div class="nav-title-confirmacion">
+      <span class="nav-title-main" data-nav-title>Sistema Azulemex</span>
+      <span class="nav-title-sub">Gestión de Unidades · Patio y Descargas</span>
+    </div>
+    <!-- Botón hamburguesa -->
+    <button class="hamburger" id="menuToggle" aria-label="Menú" data-usuario-privado>
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </div>
+</header>
+
+<!-- Overlay -->
+<div class="overlay" id="overlay"></div>
+
+<!-- Menú lateral derecho -->
+<aside class="side-menu right" id="sideMenu">
+  <div class="menu-header">
+    <h3>Menú</h3>
+    <button class="close-btn" id="closeMenu2">✕</button>
+  </div>
+
+  <div class="menu-user-block" data-usuario-privado>
+    <span class="menu-user-name" data-usuario-nombre>Usuario</span>
+    <span class="menu-user-role" data-usuario-puesto>Puesto</span>
+  </div>
+
+  <nav class="menu-links" id="menuLinks">
+    <!-- JS construye links según rol -->
+  </nav>
+
+  <div class="menu-footer" data-usuario-privado>
+    <button class="logout-btn" type="button" id="logoutBtn">Cerrar sesión</button>
+  </div>
+</aside>
+
+<div class="dashboard-container">
+
+    <!-- ================= HEADER ================= -->
+<section class="module-toolbar">
+    <!-- ================= FILTROS ================= -->
+    <div class="filtros-bar">
+        <select id="filtroHistorial" class="filtro-historial">
+            <option value="hoy" selected>Hoy</option>
+            <option value="semana">Semana</option>
+            <option value="todos">Todos</option>
+        </select>
+    </div>
+</section>
+
+    <!-- ================= TABS ================= -->
+    <div class="tabs-container">
+        <button class="tab-btn active" data-tab="patio">
+            🚚 Patio
+            <span class="badge-count" id="countPatio">0</span>
+        </button>
+
+        <button class="tab-btn" data-tab="historial">
+            📦 Historial
+            <span class="badge-count" id="countHistorial">0</span>
+        </button>
+    </div>
+
+    <!-- ================= CONTENIDO ================= -->
+    <div id="tab-patio" class="tab-content entregas-grid" style="display:grid;"></div>
+    <div id="tab-historial" class="tab-content entregas-grid" style="display:none;"></div>
+
+</div>
+
+<!-- ===================================================== -->
+<!-- MODAL PRE LIGADOS A UN TURNO / UNIDAD -->
+<!-- ===================================================== -->
+<div id="modalPreTurno" class="modal-overlay">
+    <div class="modal-card modal-pre-turno">
+      <div class="modal-header modal-pre-header">
+        <div class="modal-header-main">
+          <p class="modal-kicker">Documentos ligados</p>
+          <h2 class="modal-title">PRE / Entradas Compra</h2>
+          <p class="modal-subtitle" id="preTurnoMeta">Proveedor | Placas | Andén</p>
+        </div>
+        <button class="btn-close-modal" type="button" onclick="cerrarModalPreTurno()">✕</button>
+      </div>
+
+      <div class="modal-pre-body">
+        <aside class="pre-sidebar">
+          <section class="sidebar-section sidebar-docs">
+            <div class="sidebar-section-header">
+              <h4>Documentos ligados</h4>
+              <button id="btnMostrarAsignacionPre" class="btn-action-primary" type="button">+ Agregar PRE</button>
+            </div>
+
+            <div id="panelAsignacionPre" class="hidden">
+              <input id="buscarDocumentoPreAdmin" class="input-admin" type="text" placeholder="Buscar PRE, referencia o proveedor">
+              <div id="resultadosBusquedaPreAdmin" class="lista-pre-ligados">
+                <div class="empty-state-mini">Escribe para buscar documentos importados.</div>
+              </div>
+            </div>
+
+            <div id="listaPreLigados" class="lista-pre-ligados">
+              <div class="empty-state-mini">No hay documentos ligados a esta unidad.</div>
+            </div>
+          </section>
+        </aside>
+
+        <main class="pre-detalle-panel">
+          <section class="pre-topbar">
+
+
+            <div class="pre-topbar-actions">
+              <div id="preDocEstadoValidacion" class="badge-validacion estado-ligado">ligado</div>
+              <button id="btnIniciarValidacionPre" class="btn-action-primary" type="button">Iniciar validación</button>
+              <button id="btnCerrarValidacionPre" class="btn-action-success" type="button" style="display:none;">Cerrar validación</button>
+              <button id="btnDesasignarPreActual" class="btn-pre-danger-soft" type="button">Quitar PRE</button>
+            </div>
+          </section>
+
+          <nav class="pre-tabs-nav">
+            <button class="pre-tab-btn active" data-target="preTabEscaner" type="button">Escáner</button>
+            <button class="pre-tab-btn" data-target="preTabSkus" type="button">SKUs</button>
+            <button class="pre-tab-btn" data-target="preTabDocumentos" type="button">Documento</button>
+            <button class="pre-tab-btn" data-target="preTabIncidencias" type="button">Incidencias</button>
+          </nav>
+
+          <section id="preTabEscaner" class="pre-tab-pane active">
+            <div class="pre-scanner-shell">
+              <div id="bloqueEscaneoPre" class="pre-scan-box hidden">
+                <div class="pre-scan-box-head">
+
+                </div>
+
+                <div class="pre-scan-controls">
+                  <div class="pre-scan-mode-wrap">
+                    <label for="scanPreModoConteo" class="pre-scan-mode-label">Tipo de escaneo</label>
+                    <select id="scanPreModoConteo" class="select-mini-pre select-scan-mode">
+                      <option value="pieza">Por pieza</option>
+                      <option value="master">Por caja master</option>
+                      <option value="pallet">Por pallet</option>
+                    </select>
+
+                    <div id="scanPreMasterWrap" class="scan-pre-master-wrap hidden">
+                      <label for="scanPreMasterPzas" class="pre-scan-mode-label">Pzas por caja master</label>
+                      <input id="scanPreMasterPzas" class="input-admin input-master" type="number" min="1" step="1" placeholder="Ej. 24">
+                    </div>
+                  </div>
+
+                  <div class="pre-scan-hero-field">
+                    <input id="scanPreInput" class="input-admin input-scan" type="text" placeholder="Código de barras...">
+                    <button id="btnProcesarScanPre" class="btn-action-info btn-scan" type="button">Procesar</button>
+                  </div>
+                </div>
+
+                <div class="pre-scan-meta-row">
+                  <span class="pre-scan-help-chip" id="preScanModoAyuda">Modo: pieza (suma 1)</span>
+                  <span class="pre-scan-help-chip pre-scan-help-chip-soft">Compatible con código interno o del proveedor</span>
+                </div>
+
+                <div id="scanPreUltimoResultado" class="pre-scan-result"></div>
+              </div>
+
+              <div class="pre-scan-progress-inline">
+                <span class="pre-scan-progress-label">Progreso</span>
+                <span class="pre-scan-progress-chip" id="preScanProgresoChip">0 / 0 Pzas</span>
+              </div>
+            </div>
+
+            <div class="pre-scan-feed-wrap">
+              <div class="pre-section-title-row">
+                <h4>Detalle de recepción</h4>
+                <span class="pre-section-title-sub">Últimos artículos escaneados y avance operativo</span>
+              </div>
+
+              <div id="preScanFeed" class="pre-scan-feed">
+                <div class="empty-state-mini">Aún no hay lecturas registradas en esta sesión.</div>
+              </div>
+            </div>
+          </section>
+
+          <section id="preTabSkus" class="pre-tab-pane">
+            <section class="pre-skus-panel">
+              <div class="pre-section-title-row">
+                <h4>SKUs cargados del documento</h4>
+                <span class="pre-section-title-sub">Ahora muestra PALLET/CAMA y marca líneas con pallet configurado.</span>
+              </div>
+
+              <div id="preSkusVacio" class="empty-state-detail pre-empty-compact hidden">
+                <div class="empty-icon">📦</div>
+                <div class="empty-title">No hay SKUs cargados</div>
+                <div class="empty-text">Selecciona un PRE para revisar las líneas importadas desde el documento.</div>
+              </div>
+
+              <div id="preSkusContenido">
+                <div class="table-wrap-admin table-wrap-admin-skus">
+                  <table class="tabla-pre-detalle-admin tabla-pre-skus">
+                    <thead>
+                      <tr>
+                        <th>Línea</th>
+                        <th>Artículo</th>
+                        <th>Descripción</th>
+                        <th>Pallet/Cama</th>
+                        <th>Esperado</th>
+                        <th>Recibido</th>
+                        <th>Diferencia</th>
+                        <th>Incidencia</th>
+                        <th>Acción</th>
+                      </tr>
+                    </thead>
+                    <tbody id="tablaPreDetalleAdminBody"></tbody>
+                  </table>
+                </div>
+                <div class="pre-sku-legend">
+                  <span class="pre-sku-legend-pill configured">Con pallet configurado</span>
+                  <span class="pre-sku-legend-pill empty">Sin pallet configurado</span>
+                </div>
+              </div>
+            </section>
+          </section>
+
+          <section id="preTabDocumentos" class="pre-tab-pane">
+            <div class="pre-doc-head-grid">
+              <div class="pre-doc-box"><span class="pre-doc-label">Folio PRE</span><span class="pre-doc-value" id="preDocFolio">-</span></div>
+              <div class="pre-doc-box"><span class="pre-doc-label">Proveedor</span><span class="pre-doc-value" id="preDocProveedor">-</span></div>
+              <div class="pre-doc-box"><span class="pre-doc-label">Referencia</span><span class="pre-doc-value" id="preDocReferencia">-</span></div>
+              <div class="pre-doc-box"><span class="pre-doc-label">Fecha</span><span class="pre-doc-value" id="preDocFecha">-</span></div>
+              <div class="pre-doc-box"><span class="pre-doc-label">Carga</span><span class="pre-doc-value" id="preDocCarga">-</span></div>
+              <div class="pre-doc-box"><span class="pre-doc-label">Total descarga</span><span class="pre-doc-value" id="preDocTotal">-</span></div>
+              <div class="pre-doc-box pre-doc-box-wide"><span class="pre-doc-label">Concepto</span><span class="pre-doc-value" id="preDocConcepto">-</span></div>
+              <div class="pre-doc-box pre-doc-box-wide"><span class="pre-doc-label">Observaciones</span><span class="pre-doc-value" id="preDocObservaciones">-</span></div>
+            </div>
+          </section>
+
+          <section id="preTabIncidencias" class="pre-tab-pane">
+            <section class="pre-resumen-validacion">
+              <div class="pre-resumen-card">
+                <div class="resumen-label">Esperado</div>
+                <div class="resumen-value" id="preIncResumenEsperado">0</div>
+                <div class="resumen-sub">Total esperado del documento</div>
+              </div>
+              <div class="pre-resumen-card">
+                <div class="resumen-label">Recibido</div>
+                <div class="resumen-value" id="preIncResumenRecibido">0</div>
+                <div class="resumen-sub">Captura validada acumulada</div>
+              </div>
+              <div class="pre-resumen-card">
+                <div class="resumen-label">Incidencias</div>
+                <div class="resumen-value" id="preIncResumenTotal">No</div>
+                <div class="resumen-sub">Diferencias detectadas</div>
+              </div>
+            </section>
+
+            <div class="pre-incidencias-contexto">
+              <div class="pre-incidencias-head">
+                <div>
+                  <p class="pre-topbar-kicker">Documento activo</p>
+                  <h3 class="pre-incidencias-title" id="preIncFolio">Selecciona un PRE</h3>
+                  <p class="pre-incidencias-meta" id="preIncMeta">Aquí verás el contexto del documento para revisar incidencias.</p>
+                </div>
+                <div id="preIncEstado" class="badge-validacion estado-ligado">ligado</div>
+              </div>
+
+              <div class="pre-incidencias-grid">
+                <div class="pre-doc-box"><span class="pre-doc-label">Proveedor</span><span class="pre-doc-value" id="preIncProveedor">-</span></div>
+                <div class="pre-doc-box"><span class="pre-doc-label">Referencia</span><span class="pre-doc-value" id="preIncReferencia">-</span></div>
+                <div class="pre-doc-box"><span class="pre-doc-label">Fecha</span><span class="pre-doc-value" id="preIncFecha">-</span></div>
+                <div class="pre-doc-box"><span class="pre-doc-label">Estado</span><span class="pre-doc-value" id="preIncEstadoTexto">-</span></div>
+              </div>
+            </div>
+
+            <div class="pre-incidencias-lista-wrap">
+              <div class="pre-section-title-row">
+                <h4>Incidencias registradas</h4>
+                <span class="pre-section-title-sub">Las incidencias guardadas se conservarán en este panel.</span>
+              </div>
+
+              <div id="preIncidenciasLista" class="pre-incidencias-lista">
+                <div class="empty-state-mini">No hay incidencias registradas para este PRE.</div>
+              </div>
+            </div>
+          </section>
+        </main>
+      </div>
+    </div>
+  </div>
+
+  <div id="modalIncidenciaPre" class="modal-overlay">
+    <div class="modal-card" style="max-width: 560px;">
+      <div class="modal-header">
+        <div>
+          <p class="modal-kicker">Incidencia PRE</p>
+          <h3 class="modal-title" style="font-size:1.15rem;">Registrar incidencia</h3>
+          <p class="modal-subtitle" id="incidenciaPreMeta">Artículo | Esperado | Recibido</p>
+        </div>
+        <button class="btn-close-modal" type="button" onclick="cerrarModalIncidenciaPre()">✕</button>
+      </div>
+      <div style="padding:18px; display:grid; gap:12px;">
+        <div class="field-admin">
+          <label for="incidenciaPreTipo">Tipo de incidencia</label>
+          <select id="incidenciaPreTipo">
+            <option value="">Selecciona una incidencia</option>
+            <option value="faltante">Faltante</option>
+            <option value="sobrante">Sobrante</option>
+            <option value="material_cambiado">Material cambiado</option>
+            <option value="danado">Dañado</option>
+            <option value="rechazado">Rechazado</option>
+            <option value="devolucion_compra">Devolución compra</option>
+          </select>
+        </div>
+        <div class="field-admin">
+          <label for="incidenciaPreCantidad">Cantidad afectada</label>
+          <input id="incidenciaPreCantidad" class="input-admin" type="number" min="0" step="1" value="1">
+        </div>
+        <div class="field-admin field-admin-full">
+          <label for="incidenciaPreObservacion">Observación</label>
+          <textarea id="incidenciaPreObservacion" rows="4" placeholder="Detalle de la incidencia"></textarea>
+        </div>
+        <div style="display:flex; gap:10px; justify-content:flex-end; margin-top:8px;">
+          <button class="btn-action-neutral" type="button" onclick="cerrarModalIncidenciaPre()" style="max-width:180px;">Cancelar</button>
+          <button id="btnGuardarIncidenciaPreModal" class="btn-action-danger" type="button" style="max-width:220px;">Guardar incidencia</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="modalCerrarValidacionPre" class="modal-overlay">
+    <div class="modal-card" style="max-width: 620px;">
+      <div class="modal-header">
+        <div>
+          <p class="modal-kicker">Cierre PRE</p>
+          <h3 class="modal-title" style="font-size:1.15rem;">Cerrar validación</h3>
+          <p class="modal-subtitle" id="cerrarPreMeta">PRE seleccionado</p>
+        </div>
+        <button class="btn-close-modal" type="button" onclick="cerrarModalCerrarValidacionPre()">✕</button>
+      </div>
+      <div style="padding:18px; display:grid; gap:12px;">
+        <div class="field-admin">
+          <label for="cerrarPrePallets">Pallets descargados</label>
+          <input id="cerrarPrePallets" class="input-admin" type="text" placeholder="Ej. 12">
+        </div>
+        <div class="field-admin field-admin-full">
+          <label for="cerrarPreObservaciones">Observaciones generales</label>
+          <textarea id="cerrarPreObservaciones" rows="4" placeholder="Notas de cierre de validación"></textarea>
+        </div>
+        <div style="display:flex; gap:10px; justify-content:flex-end; margin-top:8px;">
+          <button class="btn-action-neutral" type="button" onclick="cerrarModalCerrarValidacionPre()" style="max-width:180px;">Cancelar</button>
+          <button id="btnConfirmarCerrarValidacionPre" class="btn-action-success" type="button" style="max-width:240px;">Confirmar cierre</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<!-- ================= SCRIPTS ================= -->
+<script src="/socket.io/socket.io.js"></script>
+<script src="/js/shared-ui-config.js"></script>
+<script src="/js/shared-status-config.js"></script>
+<script src="/js/navbar.js"></script>
+<script src="/js/toast.js"></script>
+<script src="/js/admin_unificado.js"></script>
+<script src="/js/admin_unificado_mobile_patch.js"></script>
+<script src="/js/admin_v47.js"></script>
+<script src="/js/admin_v48_frontend_only.js"></script>
+</body>
+</html>

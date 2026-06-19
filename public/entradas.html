@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recepción de Materiales</title>
+    <!-- 1. Tailwind CSS (Diseño y Estilos rápidos) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- 2. Socket.IO (Comunicación en tiempo real) -->
+    <script src="/socket.io/socket.io.js"></script>
+    <!-- Fuente / favicon -->
+    <link rel="shortcut icon" href="img/azulemex-logo-sinfondo.png" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- 3. Font Awesome (Catálogo de Iconos) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        /* Efecto visual al tocar botones */
+        .btn-press:active { transform: scale(0.98); }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800">
+
+    <div id="app" class="max-w-md mx-auto bg-white min-h-screen shadow-lg flex flex-col">
+
+        <header class="bg-blue-800 text-white p-4 shadow-md flex justify-between items-center">
+            <div>
+                <h1 class="text-lg font-bold">Rampa de Recibo</h1>
+                <p class="text-xs text-blue-200">Operador: Marco | Andén 1</p>
+            </div>
+            <button class="text-white hover:text-red-300">
+                <i class="fas fa-sign-out-alt fa-lg"></i>
+            </button>
+        </header>
+
+        <main class="flex-grow p-4 flex flex-col gap-4">
+
+            <div id="seccion-carga-orden" class="bg-gray-50 p-4 rounded-lg border border-gray-200 shadow-sm">
+                <label for="orden-input" class="block text-sm font-semibold text-gray-700 mb-1">Escanear Orden / Pre-Entrada</label>
+                <div class="flex gap-2">
+                    <input type="text" id="orden-input" placeholder="Ej: OC-98765" class="flex-grow p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:outline-none uppercase">
+                    <button class="bg-gray-200 p-3 rounded-md border border-gray-300 hover:bg-gray-300 btn-press">
+                        <i class="fas fa-camera text-gray-700 fa-lg"></i>
+                    </button>
+                    <button class="bg-blue-600 text-white px-4 rounded-md font-bold hover:bg-blue-700 btn-press">
+                        Cargar
+                    </button>
+                </div>
+            </div>
+
+            <div id="seccion-escaneo-articulos" class="bg-white p-4 rounded-lg border border-blue-200 shadow-sm relative">
+                <div class="absolute top-0 right-0 bg-blue-100 text-blue-800 text-xs font-bold px-2 py-1 rounded-bl-lg rounded-tr-lg">
+                    OC-98765
+                </div>
+                <label for="articulo-input" class="block text-sm font-bold text-gray-800 mb-1 mt-2">Escanear Artículo</label>
+                <div class="relative flex items-center mt-1">
+                    <input type="text" id="articulo-input" class="block w-full p-3 border-2 border-blue-400 rounded-md font-bold text-lg focus:outline-none focus:ring-2 focus:ring-blue-600" autocomplete="off" placeholder="Código de barras...">
+                    <button type="button" class="absolute right-2 p-2 text-gray-500 hover:text-blue-600 btn-press">
+                        <i class="fas fa-barcode fa-2xl"></i>
+                    </button>
+                </div>
+                
+                <div class="mt-3 flex justify-between items-center text-sm font-semibold text-gray-600">
+                    <span>Progreso:</span>
+                    <span class="text-blue-600 bg-blue-100 px-2 py-1 rounded-full">45 / 120 Pzas</span>
+                </div>
+            </div>
+
+            <div class="flex-grow overflow-y-auto">
+                <h3 class="font-bold text-gray-700 mb-2 border-b pb-1">Detalle de Recepción</h3>
+                
+                <div id="lista-recepcion" class="flex flex-col gap-2">
+                    
+                    <div class="p-3 border-l-4 border-green-500 bg-green-50 rounded-r-md shadow-sm flex justify-between items-center">
+                        <div>
+                            <p class="font-bold text-gray-800 text-sm">SKU-10054</p>
+                            <p class="text-xs text-gray-600 line-clamp-1">Cemento Gris Monterrey 50kg</p>
+                        </div>
+                        <div class="text-right">
+                            <span class="block text-xs text-gray-500">Recibido / Esperado</span>
+                            <span class="font-bold text-green-700 text-lg">50 / 50</span>
+                        </div>
+                    </div>
+
+                    <div class="p-3 border-l-4 border-yellow-400 bg-yellow-50 rounded-r-md shadow-sm flex justify-between items-center">
+                        <div>
+                            <p class="font-bold text-gray-800 text-sm">SKU-20991</p>
+                            <p class="text-xs text-gray-600 line-clamp-1">Varilla Corrugada 3/8</p>
+                        </div>
+                        <div class="text-right">
+                            <span class="block text-xs text-gray-500">Recibido / Esperado</span>
+                            <span class="font-bold text-yellow-700 text-lg">30 / 100</span>
+                        </div>
+                    </div>
+
+                    <div class="p-3 border-l-4 border-gray-300 bg-gray-50 rounded-r-md shadow-sm flex justify-between items-center opacity-70">
+                        <div>
+                            <p class="font-bold text-gray-800 text-sm">SKU-33012</p>
+                            <p class="text-xs text-gray-600 line-clamp-1">Malla Electrosoldada 6x6</p>
+                        </div>
+                        <div class="text-right">
+                            <span class="block text-xs text-gray-500">Recibido / Esperado</span>
+                            <span class="font-bold text-gray-600 text-lg">0 / 20</span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </main>
+
+        <footer class="p-4 bg-white border-t border-gray-200">
+            <button class="w-full bg-green-600 text-white font-bold text-lg py-3 rounded-lg shadow-md hover:bg-green-700 btn-press flex justify-center items-center gap-2">
+                <i class="fas fa-print"></i>
+                Cerrar y Generar LPN
+            </button>
+        </footer>
+
+    </div>
+
+    <script>
+        const socket = io();
+        // 1. Lee el andén desde la URL y define tus accesos reales
+        const urlParams = new URLSearchParams(window.location.search);
+        const parametroAnden = urlParams.get('anden');
+        const andenesValidos = ['1', '2', '3', '4', '5']; // Tus 5 andenes físicos
+        // 2. Si ponen un andén que no existe o lo dejan vacío, destruimos la interfaz y bloqueamos
+        if (!parametroAnden || !andenesValidos.includes(parametroAnden)) {
+            document.body.innerHTML = `
+                <div class="min-h-screen bg-gray-100 flex flex-col items-center justify-center p-4">
+                    <div class="bg-white p-8 rounded-lg shadow-lg text-center border-t-4 border-red-500 max-w-sm w-full">
+                        <i class="fas fa-lock text-red-500 text-5xl mb-4"></i>
+                        <h1 class="text-2xl font-bold text-gray-800 mb-2">Andén No Válido</h1>
+                        <p class="text-gray-600 font-medium">El andén "${parametroAnden || 'vacío'}" no existe en el CEDIS.</p>
+                        <p class="text-sm text-gray-400 mt-4">Accesos autorizados: 1, 2, 3, 4 y 5.</p>
+                    </div>
+                </div>
+            `;
+            throw new Error("Ejecución detenida: Andén no válido."); // Esto evita que el resto del script intente conectarse
+        }
+        // 3. Si pasó la validación, seguimos con normalidad
+        const NUMERO_ANDEN = parametroAnden;
+        let turnoActualId = null;
+        // Actualizamos el título principal visualmente
+        document.addEventListener('DOMContentLoaded', () => {
+            const tituloRampa = document.querySelector('header h1');
+            if (tituloRampa) {
+                tituloRampa.innerText = `Rampa de Recibo - Andén ${NUMERO_ANDEN}`;
+            }
+        });
+        // Funcionalidad del botón "Cerrar y Generar LPN"
+        const btnFinalizar = document.querySelector('footer button');
+        if (btnFinalizar) {
+        btnFinalizar.addEventListener('click', async () => {
+            if (!turnoActualId) {
+                alert("No hay ninguna unidad activa en este andén para finalizar.");
+                return;}
+            if (confirm("¿Estás seguro de cerrar la recepción y liberar el andén?")) {
+                // Cambiamos el texto del botón temporalmente para que el operador sepa que está cargando
+                const textoOriginal = btnFinalizar.innerHTML;
+                btnFinalizar.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Finalizando...';
+                btnFinalizar.disabled = true;
+                try {
+                    const respuesta = await fetch('/api/actualizar-turno', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ 
+                            id: turnoActualId, 
+                            nuevoEstatus: 'Finalizado', 
+                            marcar_fin: true // Registra la hora_fin_descarga exacta
+                        })
+                    });
+                    if (respuesta.ok) {
+                        // Nota: No necesitamos limpiar la pantalla manualmente porque el 
+                        // evento 'actualizacion_turnos' del socket lo hará automáticamente
+                        console.log("Recepción finalizada con éxito.");
+                    } else {
+                        alert("Hubo un problema al finalizar la recepción.");
+                    }
+                } catch (error) {
+                    console.error("Error al conectar con la API:", error);
+                    alert("Error de conexión al intentar liberar el andén.");
+                } finally {
+                    // Restauramos el botón
+                    btnFinalizar.innerHTML = textoOriginal;
+                    btnFinalizar.disabled = false;
+                }
+            }
+        });
+    }
+    // ... aquí continúa tu función async function monitorearRampa() ...
+    async function monitorearRampa() {
+        try {
+            const respuesta = await fetch('/api/turnos');
+            const turnos = await respuesta.json();
+            const turnoActivo = turnos.find(t => t.estatus === 'En Descarga' && t.anden === NUMERO_ANDEN);
+            const textoOperador = document.querySelector('header p.text-blue-200');
+            const inputOrden = document.getElementById('orden-input');
+            const badgeSuperior = document.querySelector('.bg-blue-100.text-blue-800');
+
+            if (turnoActivo) {
+                turnoActualId = turnoActivo.id; // <--- GUARDAMOS EL ID AQUÍ
+                textoOperador.innerText = `Operador: ${turnoActivo.nombre_operador || 'No registrado'} | Andén ${NUMERO_ANDEN}`;
+                inputOrden.value = turnoActivo.folio || turnoActivo.placas;
+                badgeSuperior.innerText = turnoActivo.proveedor || turnoActivo.folio || 'PROVEEDOR';
+                badgeSuperior.style.display = 'block';
+            } else {
+                turnoActualId = null; // <--- LIMPIAMOS EL ID SI ESTÁ VACÍO
+                textoOperador.innerText = `🟢 Rampa Libre | Andén ${NUMERO_ANDEN}`;
+                inputOrden.value = '';
+                inputOrden.placeholder = "Esperando asignación de patio...";
+                badgeSuperior.style.display = 'none';
+            }
+        } catch (error) {
+            console.error("Error al conectar con el patio:", error);
+        }
+    }
+
+        // Efectos visuales de los botones (Mockup de escaneo)
+        document.getElementById('articulo-input').addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                this.value = ''; // Limpia el input simulando que ya se escaneó
+                // Aquí en el futuro irá la lógica de validar contra la BD de inventarios
+                alert("Simulación: Artículo escaneado correctamente.");
+            }
+        });
+        // Cargar estado inicial y escuchar cambios en tiempo real
+        monitorearRampa();
+        socket.on('actualizacion_turnos', monitorearRampa);
+    </script>
+</body>
+</html>

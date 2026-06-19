@@ -1,0 +1,760 @@
+:root {
+    --primary: #005baa;
+    --primary-light: #1d4ed8;
+    --pink: #E91E63;
+    --success: #16a34a;
+    --warning: #d97706;
+    --danger: #dc2626;
+    --surface: #ffffff;
+    --surface-soft: #f8fafc;
+    --border: #dbe4ee;
+    --text-main: #0f172a;
+    --text-soft: #64748b;
+    --bg: #f4f6f9;
+    --shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
+}
+
+* { 
+    box-sizing: border-box; 
+}
+
+body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text-main);
+    font-family: 'Poppins', sans-serif;
+}
+
+.hidden { 
+    display: none !important; 
+}
+
+/* =========================================
+   MAIN
+========================================= */
+.mi-turno-main {
+    min-height: 100vh;
+    padding: 20px;
+}
+
+/* =========================================
+   HEADER LOGO
+========================================= */
+.header-logo-section {
+    text-align: center;
+    margin-bottom: 24px;
+}
+
+.logo-principal {
+    max-width: 300px;
+    height: auto;
+    display: block;
+    justify-content: center;
+    margin: 0 auto;
+}
+
+/* =========================================
+   HEADER TÍTULO
+========================================= */
+.header-titulo-section {
+    text-align: center;
+    margin-bottom: 28px;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.titulo-principal {
+    margin: 0 0 8px 0;
+    font-size: 2.2rem;
+    font-weight: 800;
+    color: var(--primary);
+    line-height: 1.2;
+}
+
+.subtitulo-principal {
+    margin: 0;
+    font-size: 1rem;
+    color: var(--text-soft);
+    line-height: 1.5;
+}
+
+/* =========================================
+   BUSCADOR (VERSIÓN SUTIL)
+========================================= */
+.buscador-section {
+    margin-bottom: 32px;
+    display: flex;
+    justify-content: center;
+}
+
+.buscador-card {
+    background: rgba(255, 255, 255, 0.5);
+    border: 1px solid rgba(219, 228, 238, 0.3);
+    border-radius: 16px;
+    box-shadow: 0 2px 8px rgba(15, 23, 42, 0.02);
+    padding: 16px 18px;
+    width: 100%;
+    max-width: 500px;
+    transition: all 0.3s ease;
+}
+
+.buscador-card:hover {
+    background: rgba(255, 255, 255, 0.85);
+    border: 1px solid var(--border);
+    box-shadow: 0 4px 12px rgba(0, 91, 170, 0.08);
+}
+
+.buscador-titulo {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 800;
+    color: rgba(100, 116, 139, 0.6);
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    margin-bottom: 10px;
+    transition: color 0.3s ease;
+}
+
+.buscador-card:hover .buscador-titulo {
+    color: var(--text-soft);
+}
+
+.buscador-input-grupo {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 10px;
+}
+
+.buscador-input-grupo input {
+    flex: 1;
+    border: 1px solid rgba(203, 213, 225, 0.4);
+    border-radius: 10px;
+    padding: 11px 14px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.9rem;
+    outline: none;
+    background: rgba(248, 250, 252, 0.6);
+    color: var(--text-main);
+    transition: all 0.2s ease;
+}
+
+.buscador-input-grupo input::placeholder {
+    color: rgba(100, 116, 139, 0.5);
+}
+
+.buscador-input-grupo input:focus {
+    border-color: var(--primary);
+    background: white;
+    box-shadow: 0 0 0 3px rgba(0, 91, 170, 0.08);
+}
+
+.buscador-card:hover .buscador-input-grupo input {
+    background: rgba(248, 250, 252, 0.9);
+    border-color: rgba(203, 213, 225, 0.6);
+}
+
+.btn-buscar {
+    border: none;
+    border-radius: 10px;
+    padding: 11px 18px;
+    background: linear-gradient(90deg, var(--primary), var(--primary-light));
+    color: white;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: 0.2s;
+    font-size: 0.9rem;
+}
+
+.btn-buscar:hover {
+    filter: brightness(0.98);
+    transform: translateY(-1px);
+}
+
+.buscador-ayuda {
+    margin: 0;
+    font-size: 0.75rem;
+    color: rgba(100, 116, 139, 0.5);
+    transition: color 0.3s ease;
+}
+
+.buscador-card:hover .buscador-ayuda {
+    color: var(--text-soft);
+}
+/* =========================================
+   TURNO CONTENEDOR
+========================================= */
+.turno-contenedor {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* =========================================
+   ESTADO GENERAL
+========================================= */
+.estado-general-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    box-shadow: var(--shadow);
+    padding: 18px 22px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+}
+
+.estado-pill-wrap {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.estado-pill {
+    padding: 10px 16px;
+    border-radius: 999px;
+    font-size: 0.82rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    background: #dbeafe;
+    color: #1d4ed8;
+    white-space: nowrap;
+}
+
+.estado-mensaje {
+    color: var(--text-soft);
+    font-size: 0.9rem;
+    font-weight: 600;
+    flex: 1;
+    min-width: 200px;
+}
+
+/* =========================================
+   DETALLE GRID
+========================================= */
+.turno-detalle {
+    margin-bottom: 20px;
+}
+
+.detalle-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr 1fr;
+    gap: 18px;
+}
+
+.detalle-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    box-shadow: var(--shadow);
+    padding: 22px;
+}
+
+.card-title {
+    font-size: 1.05rem;
+    font-weight: 800;
+    color: var(--primary);
+    margin: 0 0 16px 0;
+}
+
+/* =========================================
+   TIMELINE
+========================================= */
+.timeline-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin-bottom: 20px;
+}
+
+.timeline-step {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: #94a3b8;
+    font-weight: 700;
+    font-size: 0.92rem;
+}
+
+.step-dot {
+    width: 18px;
+    height: 18px;
+    border-radius: 999px;
+    background: #cbd5e1;
+    flex-shrink: 0;
+    transition: 0.2s;
+}
+
+.timeline-step.active {
+    color: var(--text-main);
+}
+
+.timeline-step.active .step-dot {
+    background: var(--primary);
+    box-shadow: 0 0 10px rgba(0, 91, 170, 0.3);
+}
+
+.timeline-step.done {
+    color: var(--success);
+}
+
+.timeline-step.done .step-dot {
+    background: var(--success);
+}
+
+/* =========================================
+   ANDÉN
+========================================= */
+.anden-highlight {
+    background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+    border: 1px solid #bfdbfe;
+    border-radius: 16px;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.anden-label {
+    font-size: 0.78rem;
+    color: var(--text-soft);
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.7px;
+}
+
+.anden-value {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--primary);
+}
+
+/* =========================================
+   DATOS GRID
+========================================= */
+.datos-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+}
+
+.dato-box {
+    background: var(--surface-soft);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.dato-box.dato-full {
+    grid-column: 1 / -1;
+}
+
+.dato-label {
+    font-size: 0.76rem;
+    color: var(--text-soft);
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+}
+
+.dato-value {
+    font-size: 0.95rem;
+    color: var(--text-main);
+    font-weight: 700;
+    word-break: break-word;
+}
+
+/* =========================================
+   TURNO VACÍO
+========================================= */
+.turno-vacio-card {
+    background: var(--surface);
+    border: 1px dashed var(--border);
+    border-radius: 22px;
+    box-shadow: var(--shadow);
+    padding: 48px 24px;
+    text-align: center;
+}
+
+.vacio-icon {
+    font-size: 2.4rem;
+    margin-bottom: 12px;
+}
+
+.vacio-title {
+    font-size: 1.2rem;
+    font-weight: 800;
+    color: var(--primary);
+    margin: 0 0 8px 0;
+}
+
+.vacio-text {
+    max-width: 600px;
+    margin: 0 auto;
+    color: var(--text-soft);
+    font-size: 0.92rem;
+    line-height: 1.5;
+}
+
+/* =========================================
+   ESTADO COLORES
+========================================= */
+.estado-espera { 
+    background: #fef3c7; 
+    color: #92400e; 
+}
+
+.estado-proximo { 
+    background: #dbeafe; 
+    color: #1d4ed8; 
+}
+
+.estado-descarga { 
+    background: #dcfce7; 
+    color: #166534; 
+}
+
+.estado-finalizado { 
+    background: #e5e7eb; 
+    color: #374151; 
+}
+
+.estado-programado { 
+    background: #ede9fe; 
+    color: #6d28d9; 
+}
+
+/* =========================================
+   RESPONSIVE - TABLET
+========================================= */
+@media (max-width: 1024px) {
+    .buscador-card {
+        max-width: 100%;
+        padding: 14px 16px;
+    }
+
+    .buscador-input-grupo input {
+        padding: 10px 12px;
+        font-size: 0.85rem;
+    }
+
+    .btn-buscar {
+        padding: 10px 16px;
+        font-size: 0.85rem;
+    }
+}
+
+/* =========================================
+   RESPONSIVE - TABLET PEQUEÑO
+========================================= */
+@media (max-width: 768px) {
+    .mi-turno-main {
+        padding: 16px;
+    }
+
+    .header-logo-section {
+        margin-bottom: 18px;
+    }
+
+    .logo-principal {
+        max-width: 160px;
+    }
+
+    .header-titulo-section {
+        margin-bottom: 22px;
+    }
+
+    .titulo-principal {
+        font-size: 1.6rem;
+    }
+
+    .subtitulo-principal {
+        font-size: 0.9rem;
+    }
+
+    .detalle-grid {
+        grid-template-columns: 1fr;
+        gap: 14px;
+    }
+
+    .detalle-card {
+        padding: 16px;
+    }
+
+    .estado-general-card {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .datos-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .timeline-steps {
+        gap: 10px;
+        margin-bottom: 16px;
+    }
+
+    .anden-highlight {
+        padding: 12px;
+    }
+
+    .anden-value {
+        font-size: 1.2rem;
+    }
+
+    .turno-vacio-card {
+        padding: 32px 16px;
+    }
+
+    .vacio-icon {
+        font-size: 2rem;
+    }
+
+    .vacio-title {
+        font-size: 1rem;
+    }
+
+    .vacio-text {
+        font-size: 0.85rem;
+    }
+}
+
+/* =========================================
+   RESPONSIVE - MÓVIL
+========================================= */
+@media (max-width: 480px) {
+    .mi-turno-main {
+        padding: 12px;
+    }
+
+    .header-logo-section {
+        margin-bottom: 14px;
+    }
+
+    .logo-principal {
+        max-width: 130px;
+    }
+
+    .header-titulo-section {
+        margin-bottom: 18px;
+    }
+
+    .titulo-principal {
+        font-size: 1.3rem;
+    }
+
+    .subtitulo-principal {
+        font-size: 0.8rem;
+    }
+
+    .estado-general-card {
+        padding: 12px 14px;
+        margin-bottom: 14px;
+        border-radius: 16px;
+    }
+
+    .estado-pill {
+        font-size: 0.75rem;
+        padding: 8px 12px;
+    }
+
+    .estado-mensaje {
+        font-size: 0.8rem;
+    }
+
+    .detalle-card {
+        padding: 14px;
+        border-radius: 16px;
+    }
+
+    .card-title {
+        font-size: 0.9rem;
+        margin-bottom: 12px;
+    }
+
+    .timeline-steps {
+        gap: 10px;
+        margin-bottom: 14px;
+    }
+
+    .timeline-step {
+        font-size: 0.8rem;
+    }
+
+    .step-dot {
+        width: 16px;
+        height: 16px;
+    }
+
+    .anden-highlight {
+        padding: 12px;
+        border-radius: 12px;
+    }
+
+    .anden-label {
+        font-size: 0.7rem;
+    }
+
+    .anden-value {
+        font-size: 1.1rem;
+    }
+
+    .datos-grid {
+        gap: 10px;
+    }
+
+    .dato-box {
+        padding: 12px;
+        border-radius: 12px;
+        gap: 3px;
+    }
+
+    .dato-label {
+        font-size: 0.7rem;
+    }
+
+    .dato-value {
+        font-size: 0.85rem;
+    }
+
+    .turno-vacio-card {
+        padding: 24px 12px;
+        border-radius: 16px;
+    }
+
+    .vacio-icon {
+        font-size: 1.6rem;
+    }
+
+    .vacio-title {
+        font-size: 0.95rem;
+    }
+
+    .vacio-text {
+        font-size: 0.75rem;
+    }
+}
+
+/* =========================================
+   RESPONSIVE - EXTRA PEQUEÑO
+========================================= */
+@media (max-width: 360px) {
+    .titulo-principal {
+        font-size: 1.1rem;
+    }
+
+    .subtitulo-principal {
+        font-size: 0.75rem;
+    }
+
+    .estado-pill {
+        font-size: 0.7rem;
+    }
+
+    .dato-value {
+        font-size: 0.8rem;
+    }
+}
+
+/* =========================================
+   RESPONSIVE - TABLET PEQUEÑO
+========================================= */
+@media (max-width: 768px) {
+    .buscador-section {
+        margin-bottom: 20px;
+    }
+
+    .buscador-card {
+        padding: 12px 14px;
+    }
+
+    .buscador-titulo {
+        font-size: 0.7rem;
+        margin-bottom: 8px;
+    }
+
+    .buscador-input-grupo {
+        gap: 6px;
+        margin-bottom: 8px;
+    }
+
+    .buscador-input-grupo input {
+        padding: 9px 11px;
+        font-size: 0.85rem;
+        border-radius: 8px;
+    }
+
+    .btn-buscar {
+        padding: 9px 14px;
+        font-size: 0.8rem;
+        border-radius: 8px;
+    }
+
+    .buscador-ayuda {
+        font-size: 0.7rem;
+    }
+}
+
+/* =========================================
+   RESPONSIVE - MÓVIL
+========================================= */
+@media (max-width: 480px) {
+    .buscador-section {
+        margin-bottom: 16px;
+    }
+
+    .buscador-card {
+        padding: 12px;
+        border-radius: 14px;
+    }
+
+    .buscador-titulo {
+        font-size: 0.65rem;
+        margin-bottom: 8px;
+    }
+
+    .buscador-input-grupo {
+        flex-direction: column;
+        gap: 6px;
+        margin-bottom: 8px;
+    }
+
+    .buscador-input-grupo input {
+        width: 100%;
+        padding: 10px 12px;
+        font-size: 0.85rem;
+        border-radius: 8px;
+    }
+
+    .btn-buscar {
+        width: 100%;
+        padding: 10px 12px;
+        font-size: 0.8rem;
+    }
+
+    .buscador-ayuda {
+        font-size: 0.65rem;
+    }
+}
+
+/* =========================================
+   RESPONSIVE - EXTRA PEQUEÑO
+========================================= */
+@media (max-width: 360px) {
+    .buscador-input-grupo input {
+        font-size: 0.8rem;
+    }
+
+    .btn-buscar {
+        font-size: 0.75rem;
+        padding: 9px 10px;
+    }
+}

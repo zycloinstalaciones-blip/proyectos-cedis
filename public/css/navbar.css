@@ -1,0 +1,368 @@
+:root {
+    --nav-primary: #005baa;
+    --nav-primary-light: #1d4ed8;
+    --nav-pink: #E91E63;
+    --nav-surface: #ffffff;
+    --nav-border: #dbe4ee;
+    --nav-text-main: #0f172a;
+    --nav-text-soft: #64748b;
+    --nav-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
+}
+
+/* ================= NAVBAR ================= */
+.navbar {
+    background: var(--nav-surface);
+    box-shadow: var(--nav-shadow);
+    border-bottom: 1px solid var(--nav-border);
+    position: sticky;
+    top: 0;
+    z-index: 1500;
+    width: 100%;
+}
+
+.container.nav {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 14px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+}
+
+.nav-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.logoimg {
+    height: 56px;
+    width: auto;
+}
+
+.nav-title-confirmacion {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    text-align: left;
+    min-width: 0;
+}
+
+.nav-title-main {
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: var(--nav-primary);
+    line-height: 1.1;
+    text-align: center;
+    padding-right: 80px;
+}
+
+.nav-title-sub {
+    font-size: 0.95rem;
+    color: var(--nav-text-soft);
+    font-weight: 600;
+    text-align: center;
+    padding-right: 80px;
+}
+
+/* ================= USUARIO VISIBLE ================= */
+.nav-user-inline {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: #f8fafc;
+    border: 1px solid var(--nav-border);
+    border-radius: 14px;
+    padding: 8px 12px;
+    min-width: 220px;
+}
+
+.nav-user-avatar {
+    width: 38px;
+    height: 38px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, var(--nav-primary), var(--nav-primary-light));
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    font-weight: 700;
+    flex-shrink: 0;
+}
+
+.nav-user-info {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.1;
+    min-width: 0;
+}
+
+.nav-user-name {
+    font-size: 0.84rem;
+    font-weight: 800;
+    color: var(--nav-text-main);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.nav-user-role {
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: var(--nav-text-soft);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* ================= HAMBURGUESA ================= */
+.hamburger {
+    width: 46px;
+    height: 46px;
+    border-radius: 14px;
+    border: none;
+    background: linear-gradient(90deg, var(--nav-primary), var(--nav-primary-light));
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+    box-shadow: 0 8px 18px rgba(29, 78, 216, 0.18);
+    flex-shrink: 0;
+}
+
+.hamburger span {
+    width: 20px;
+    height: 2px;
+    border-radius: 999px;
+    background: white;
+    display: block;
+}
+
+/* ================= OVERLAY ================= */
+.overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(15, 23, 42, 0.45);
+    display: none;
+    z-index: 1600;
+}
+
+.overlay.active {
+    display: block;
+}
+
+/* ================= SIDE MENU ================= */
+.side-menu {
+    position: fixed;
+    top: 0;
+    right: -360px;
+    width: 340px;
+    max-width: 90%;
+    height: 100vh;
+    background: white;
+    box-shadow: -12px 0 28px rgba(15, 23, 42, 0.12);
+    z-index: 1700;
+    transition: right 0.28s ease;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.side-menu.right {
+    right: -360px;
+}
+
+.side-menu.active {
+    right: 0;
+}
+
+/* 🔥 ESTE ES EL FIX CLAVE */
+.side-menu.right.active {
+    right: 0;
+}
+
+.menu-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 20px;
+    border-bottom: 1px solid #e5e7eb;
+    background: #fff;
+    flex-shrink: 0;
+}
+
+.menu-header h3 {
+    margin: 0;
+    font-size: 1.1rem;
+    color: var(--nav-primary);
+    font-weight: 800;
+}
+
+.close-btn {
+    border: none;
+    background: transparent;
+    font-size: 1.2rem;
+    cursor: pointer;
+    color: #64748b;
+}
+
+.menu-user-block {
+    padding: 18px 20px;
+    border-bottom: 1px solid #e5e7eb;
+    background: #f8fafc;
+    flex-shrink: 0;
+}
+
+.menu-user-name {
+    display: block;
+    font-size: 1rem;
+    font-weight: 800;
+    color: #0f172a;
+}
+
+.menu-user-role {
+    display: block;
+    margin-top: 4px;
+    font-size: 0.8rem;
+    color: #64748b;
+    font-weight: 600;
+}
+
+.menu-links {
+    padding: 16px 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    overflow-y: auto;
+    flex: 1;
+    min-height: 0;
+}
+
+.menu-links a {
+    text-decoration: none;
+    color: #0f172a;
+    font-weight: 700;
+    padding: 12px 14px;
+    border-radius: 12px;
+    transition: 0.18s ease;
+    border: 1px solid transparent;
+    background: #fff;
+    display: block;
+}
+
+.menu-links a:hover {
+    background: #eff6ff;
+    color: var(--nav-primary);
+    border-color: #bfdbfe;
+}
+
+.menu-links a.active {
+    background: #dbeafe;
+    color: var(--nav-primary);
+    border-color: #93c5fd;
+}
+
+.menu-footer {
+    padding: 16px 20px 22px;
+    border-top: 1px solid #e5e7eb;
+    background: #fff;
+    flex-shrink: 0;
+}
+
+.logout-btn {
+    width: 100%;
+    border: none;
+    border-radius: 12px;
+    padding: 12px 14px;
+    background: #ef4444;
+    color: white;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 800;
+    cursor: pointer;
+}
+
+.logout-btn:hover {
+    opacity: 0.95;
+}
+
+.centered-nav {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 18px;
+}
+
+.logoimg.grande {
+    height: 56px;
+    width: auto;
+}
+
+.center-text {
+    text-align: center;
+    justify-self: center;
+}
+
+.nav-title-confirmacion.center-text {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+
+/* ================= AJUSTE DE PÁGINAS CON NAVBAR ================= */
+/* Opcional: si algún contenido queda pegado arriba, puedes usar esto
+body.has-navbar main,
+body.has-navbar .dashboard-container,
+body.has-navbar .bitacora-container {
+    margin-top: 14px;
+}
+*/
+
+/* ================= RESPONSIVE ================= */
+@media (max-width: 900px) {
+    .nav-user-inline {
+        display: none;
+    }
+
+    .nav-title-main {
+        font-size: 0.92rem;
+    }
+
+    .nav-title-sub {
+        font-size: 0.72rem;
+    }
+
+    .container.nav {
+        padding: 12px 14px;
+    }
+
+    .logoimg {
+        height: 38px;
+    }
+}
+
+@media (max-width: 520px) {
+    .container.nav {
+        gap: 10px;
+    }
+
+    .nav-title-main {
+        font-size: 0.86rem;
+    }
+
+    .nav-title-sub {
+        font-size: 0.68rem;
+    }
+
+    .hamburger {
+        width: 42px;
+        height: 42px;
+        border-radius: 12px;
+    }
+}

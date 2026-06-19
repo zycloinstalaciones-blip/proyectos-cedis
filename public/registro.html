@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auto-Registro Llegada | Azulemex</title>
+    <link rel="stylesheet" href="/css/registro.css">
+    <link rel="stylesheet" href="/css/toast.css">
+    <link rel="shortcut icon" href="/img/azulemex-logo-sinfondo.png" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<div class="registro-container">
+    
+    <!-- LOGO ARRIBA -->
+    <div class="registro-logo">
+        <img src="/img/azulemex-nuevo-sf.png" alt="Azulemex">
+    </div>
+
+    <!-- SELECTOR INICIAL: SÍ O NO CITA -->
+    <div id="selector-inicial" class="selector-inicial">
+        <div class="selector-card">
+            <h2 class="selector-titulo">Registro para descarga</h2>
+            <p class="selector-subtitulo">Complete sus datos para formarse en la fila del patio.</p>
+
+            <h3 class="cita-titulo">¿Cuentas con una cita programada?</h3>
+
+            <div class="botones-cita">
+                <button type="button" id="btn-con-cita" class="btn-opcion btn-con-cita-btn">
+                    <span class="icono-btn">✅</span>
+                    SÍ, tengo cita
+                </button>
+                <button type="button" id="btn-sin-cita" class="btn-opcion btn-sin-cita-btn">
+                    <span class="icono-btn">📝</span>
+                    NO, vengo sin cita
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- BUSCADOR CON CITA -->
+    <div id="buscador-caja" class="buscador-caja">
+        <h2 class="titulo-form">Buscar mi cita</h2>
+
+        <label class="buscador-label">Ingresa tus datos para encontrar tu cita programada:</label>
+
+        <div class="buscador-input-group">
+            <input 
+                type="text" 
+                id="input-busqueda" 
+                placeholder="Ej. NWS9709 o Lamosa" 
+                autocomplete="off"
+            >
+            <button type="button" id="btn-buscar" class="btn-buscar">🔍 Buscar</button>
+        </div>
+
+        <div id="resultados-busqueda" class="resultados-lista"></div>
+
+        <button type="button" class="btn-volver" id="btn-volver-inicio">← Volver atrás</button>
+    </div>
+
+    <!-- FORMULARIO REGISTRO -->
+    <form id="formRegistroOp" class="form-registro-op">
+        <div class="form-header">
+            <h2 class="titulo-form">Registrar mi llegada</h2>
+            <button type="button" class="btn-volver-form" id="btn-volver-form">← Volver</button>
+        </div>
+
+        <input type="hidden" id="turno_id">
+
+        <div id="alerta-match" class="alerta-match">
+            ✅ Cita encontrada. Por favor, completa los datos faltantes.
+        </div>
+
+        <fieldset class="admin-fieldset">
+            <legend>Información del Operador</legend>
+
+            <div class="form-row">
+                <div class="field">
+                    <label>Nombre Completo</label>
+                    <input type="text" id="nombre_operador" placeholder="Ej. Juan Pérez" required>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="field">
+                    <label>Teléfono Celular</label>
+                    <input type="tel" id="telefono" placeholder="10 dígitos" required maxlength="10" pattern="[0-9]{10}" inputmode="numeric">
+                    <small class="field-help">Debes ingresar exactamente 10 dígitos</small>
+                </div>
+
+                <div class="field">
+                    <label>Placas del Tractor</label>
+                    <input type="text" id="placas" placeholder="Ej. NWS9709" required minlength="6" maxlength="8" pattern="[A-Za-z0-9]{6,8}" style="text-transform: uppercase;">
+                    <small class="field-help">6-8 caracteres alfanuméricos (mayúsculas)</small>
+                </div>
+            </div>
+        </fieldset>
+
+        <fieldset class="admin-fieldset">
+            <legend>Detalles de Unidad y Carga</legend>
+
+            <div class="form-row">
+                <div class="field">
+                    <label>Tipo de Unidad</label>
+                    <select id="tipo_unidad" required>
+                        <option value="" disabled selected>Seleccione una opción...</option>
+                        <option value="Camioneta Granel">Camioneta Granel</option>
+                        <option value="Camioneta Palletizada">Camioneta Palletizada</option>
+                        <option value="Torthon Caja Seca">Torthon Caja Seca</option>
+                        <option value="Torthon Plataforma">Torthon Plataforma</option>
+                        <option value="Trailer Plataforma">Trailer Plataforma</option>
+                        <option value="Trailer Caja Seca">Trailer Caja Seca</option>
+                        <option value="Contenedor Granel">Contenedor Granel</option>
+                        <option value="Contenedor Palletizado">Contenedor Palletizado</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="field field-full">
+                    <label>Categoría / Área de Destino</label>
+                    <select id="categoria" class="select-destacado" required>
+                        <option value="" disabled selected>¿Qué tipo de material entregas?</option>
+                        <option value="PISO">Pisos y Recubrimientos</option>
+                        <option value="BAÑO">Baños y Sanitarios</option>
+                        <option value="GRIFERIA">Grifería y Accesorios</option>
+                        <option value="GENERAL">Carga General / Mixta</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="field">
+                    <label>Proveedor / Marca</label>
+                    <select id="proveedor" class="select-destacado" required>
+                        <option value="">Selecciona un Proveedor...</option>
+                    </select>
+                </div>
+                
+                <div class="field">
+                    <div id="contenedorCantidad"></div>
+                </div>
+            </div>
+        </fieldset>
+
+        <button type="submit" class="btn-submit" id="btnGuardar">Registrar mi Llegada a Patio</button>
+    </form>
+</div>
+
+<!-- MODAL DE ÉXITO -->
+<div id="modalExito" class="modal-exito">
+    <div class="modal-exito-card">
+        <span class="modal-icon-check">✅</span>
+        <h3>Registro completado</h3>
+        <p id="textoExitoRegistro">Tu unidad fue registrada correctamente.</p>
+
+        <div class="contador-box">
+            Tiempo restante para continuar:
+            <span id="contador-regreso">—</span>
+        </div>
+
+        <div class="acciones-exito">
+            <button id="btnVerMiEstatus" type="button" class="btn-main">Ver mi estatus</button>
+            <button id="btnCerrarExito" type="button" class="btn-secondary">Registrar otra unidad</button>
+        </div>
+    </div>
+</div>
+
+<script src="/js/shared-config.js"></script>
+<script src="/js/toast.js"></script>
+<script src="/js/registro.js"></script>
+</body>
+</html>

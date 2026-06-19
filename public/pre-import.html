@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Entradas Compra / PRE | Azulemex</title>
+    <link rel="stylesheet" href="/css/navbar.css">
+    <link rel="stylesheet" href="/css/toast.css">
+    <link rel="stylesheet" href="/css/pre-import.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="navbar public-navbar">
+        <div class="container nav centered-nav public-nav-row">
+            <div class="nav-logo">
+                <img src="/img/azulemex-nuevo-sf.png" alt="Azulemex" class="logoimg grande">
+            </div>
+            <div class="nav-title-confirmacion center-text">
+                <span class="nav-title-main">Entradas Compra / PRE</span>
+                <span class="nav-title-sub">Importación y control documental Intelisis</span>
+            </div>
+            <button class="hamburger hidden-public" aria-hidden="true" tabindex="-1">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </header>
+
+        <main class="pre-container">
+        <section class="pre-topbar">
+            <div class="topbar-left">
+                <div class="topbar-title">Importar Excel de entradas compra</div>
+                <div class="topbar-subtitle">Cada hoja se procesa como un documento PRE / Entrada Compra.</div>
+            </div>
+            <div class="topbar-right">
+                <label for="archivoExcel" class="btn-main btn-file">Seleccionar Excel</label>
+                <input type="file" id="archivoExcel" accept=".xlsx,.xls" hidden>
+                <button id="btnImportarExcel" class="btn-main" disabled>Importar archivo</button>
+            </div>
+        </section>
+
+        <section id="resumenImportacion" class="import-summary hidden">
+            <div class="summary-item summary-ok">
+                <span class="summary-label">Documentos importados</span>
+                <span class="summary-value" id="sumDocumentos">0</span>
+            </div>
+            <div class="summary-item summary-info">
+                <span class="summary-label">Partidas importadas</span>
+                <span class="summary-value" id="sumPartidas">0</span>
+            </div>
+            <div class="summary-item summary-warning">
+                <span class="summary-label">PRE pendientes</span>
+                <span class="summary-value" id="sumPendientes">0</span>
+            </div>
+        </section>
+
+        <section class="toolbar-pre">
+            <div class="toolbar-left">
+                <input type="text" id="busquedaPre" placeholder="Buscar por PRE, proveedor, referencia o concepto..." autocomplete="off">
+                <select id="filtroEstadoPre">
+                    <option value="">Todos los estados</option>
+                    <option value="importado">Importado</option>
+                    <option value="pendiente_pre">Pendiente PRE</option>
+                    <option value="ligado">Ligado</option>
+                    <option value="revisado">Revisado</option>
+                    <option value="concluido">Concluido</option>
+                </select>
+            </div>
+            <div class="toolbar-right">
+                <button id="btnActualizarPre" class="btn-secondary">Actualizar</button>
+            </div>
+        </section>
+
+        <section class="main-layout">
+            <section class="lista-panel">
+                <div class="panel-header">
+                    <div>
+                        <h3>Documentos importados</h3>
+                        <p id="countDocsText">0 documentos</p>
+                    </div>
+                </div>
+                <div class="table-wrap">
+                    <table class="tabla-pre">
+                        <thead>
+                            <tr>
+                                <th>PRE</th>
+                                <th>Proveedor</th>
+                                <th>Referencia</th>
+                                <th>Fecha</th>
+                                <th>Carga</th>
+                                <th>Total</th>
+                                <th>Estado</th>
+                                <th>Acción</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tablaPreBody"></tbody>
+                    </table>
+                </div>
+            </section>
+
+            <aside class="detalle-panel">
+                <div class="panel-header sticky-header">
+                    <div>
+                        <h3>Detalle del documento</h3>
+                        <p id="detalleHint">Selecciona un documento para ver su detalle.</p>
+                    </div>
+                </div>
+                <div id="estadoVacioDetalle" class="empty-detail">
+                    <div class="empty-icon">📄</div>
+                    <div class="empty-title">Sin documento seleccionado</div>
+                    <div class="empty-text">Cuando selecciones una PRE, aquí verás encabezado, artículos y resumen.</div>
+                </div>
+                <div id="detalleDocumento" class="hidden">
+                    <div class="doc-head-grid">
+                        <div class="doc-box"><span class="doc-label">PRE</span><span class="doc-value" id="dPre">-</span></div>
+                        <div class="doc-box"><span class="doc-label">Proveedor</span><span class="doc-value" id="dProveedor">-</span></div>
+                        <div class="doc-box"><span class="doc-label">Referencia</span><span class="doc-value" id="dReferencia">-</span></div>
+                        <div class="doc-box"><span class="doc-label">Concepto</span><span class="doc-value" id="dConcepto">-</span></div>
+                        <div class="doc-box"><span class="doc-label">Empresa</span><span class="doc-value" id="dEmpresa">-</span></div>
+                        <div class="doc-box"><span class="doc-label">Fecha</span><span class="doc-value" id="dFecha">-</span></div>
+                        <div class="doc-box"><span class="doc-label">Unidad tipo</span><span class="doc-value" id="dUnidadTipo">-</span></div>
+                        <div class="doc-box"><span class="doc-label">Carga</span><span class="doc-value" id="dCargaTipo">-</span></div>
+                        <div class="doc-box"><span class="doc-label">Pallets entrada</span><span class="doc-value" id="dPalletsEntrada">-</span></div>
+                        <div class="doc-box"><span class="doc-label">Total descarga</span><span class="doc-value" id="dTotalDescarga">-</span></div>
+                        <div class="doc-box doc-box-wide"><span class="doc-label">Observaciones</span><span class="doc-value" id="dObservaciones">-</span></div>
+                    </div>
+                    <div class="detalle-actions">
+                        <button id="btnEditarPre" class="btn-secondary">Corregir PRE</button>
+                        <button id="btnAsignarTurno" class="btn-main">Asignar a unidad</button>
+                        <button id="btnEliminarDocumentoPre" class="btn-danger">Eliminar documento</button>
+                    </div>
+                    <div class="detalle-table-wrap">
+                        <table class="tabla-detalle">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Almacén</th>
+                                    <th>Pallet/Cama</th>
+                                    <th>Artículo</th>
+                                    <th>Código auxiliar</th>
+                                    <th>Descripción</th>
+                                    <th>Cantidad esperada</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tablaDetalleBody"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </aside>
+        </section>
+    </main>
+
+    <div id="modalCorregirPre" class="modal-overlay">
+        <div class="modal-card modal-small">
+            <div class="modal-header">
+                <div>
+                    <p class="modal-kicker">Corrección manual</p>
+                    <h3 class="modal-title">Corregir folio PRE</h3>
+                </div>
+                <button class="btn-close-modal" data-close="modalCorregirPre">✕</button>
+            </div>
+            <div class="modal-body">
+                <label class="modal-label">Entrada Compra / PRE</label>
+                <input type="text" id="inputCorregirPre" class="modal-input" placeholder="Ej. 99A69536" autocomplete="off">
+            </div>
+            <div class="modal-footer">
+                <button class="btn-secondary" data-close="modalCorregirPre">Cancelar</button>
+                <button id="btnGuardarCorreccionPre" class="btn-main">Guardar</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="modalAsignarTurno" class="modal-overlay">
+        <div class="modal-card modal-small">
+            <div class="modal-header">
+                <div>
+                    <p class="modal-kicker">Ligado documental</p>
+                    <h3 class="modal-title">Asignar documento a unidad</h3>
+                </div>
+                <button class="btn-close-modal" data-close="modalAsignarTurno">✕</button>
+            </div>
+            <div class="modal-body">
+                <label class="modal-label">Turno / Unidad activa</label>
+                <select id="selectTurnoAsignar" class="modal-input"></select>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-secondary" data-close="modalAsignarTurno">Cancelar</button>
+                <button id="btnConfirmarAsignacion" class="btn-main">Asignar</button>
+            </div>
+        </div>
+    </div>
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="/js/toast.js"></script>
+<script src="/js/pre-import.js"></script>
+</body>
+</html>

@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Caseta de Recepción</title>
+    <link rel="stylesheet" href="/css/recepcion.css">
+    <link rel="stylesheet" href="/css/navbar.css">
+    <link rel="stylesheet" href="/css/toast.css">
+    <link rel="shortcut icon" href="img/azulemex-logo-sinfondo.png" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<header class="navbar">
+    <div class="container nav">
+        <div class="nav-logo">
+            <img src="/img/azulemex-nuevo-sf.png" alt="Azulemex" class="logoimg">
+        </div>
+        <div class="nav-title-confirmacion">
+            <span class="nav-title-main" data-nav-title>Sistema Azulemex</span>
+            <span class="nav-title-sub">Registro de entrada y validación de citas</span>
+        </div>
+        <button class="hamburger" id="menuToggle" aria-label="Menú" data-usuario-privado>
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </div>
+</header>
+
+<div class="overlay" id="overlay"></div>
+
+<aside class="side-menu right" id="sideMenu">
+    <div class="menu-header">
+        <h3>Menú</h3>
+        <button class="close-btn" id="closeMenu2">✕</button>
+    </div>
+    <div class="menu-user-block" data-usuario-privado>
+        <span class="menu-user-name" data-usuario-nombre>Usuario</span>
+        <span class="menu-user-role" data-usuario-puesto>Puesto</span>
+    </div>
+    <nav class="menu-links" id="menuLinks"></nav>
+    <div class="menu-footer" data-usuario-privado>
+        <button class="logout-btn" type="button" id="logoutBtn">Cerrar sesión</button>
+    </div>
+</aside>
+
+<main class="dashboard-container">
+    <section class="module-toolbar">
+        <div class="page-header">
+            <button class="btn-nuevo-registro" onclick="abrirModalNuevo()">
+                <span>+</span> Registrar Nueva Llegada
+            </button>
+        </div>
+    </section>
+
+    <div id="modal-registro" class="modal-overlay">
+        <div class="modal-content caja-formulario">
+            <span class="cerrar-modal" onclick="cerrarModal()">&times;</span>
+            <h3 id="titulo-form">Registrar Nueva Llegada</h3>
+            <form id="form-registro">
+                <input type="hidden" id="turno-id">
+
+                <div class="fila-form">
+                    <div class="grupo-form"><label>Folio (Entrada Compra)</label><input type="text" id="folio" placeholder="Ej. 99A64662"></div>
+                    <div class="grupo-form"><label>Operador</label><input type="text" id="nombre_operador" required></div>
+                    <div class="grupo-form"><label>Teléfono</label><input type="tel" id="telefono"></div>
+                </div>
+
+                <div class="fila-form">
+                    <div class="grupo-form">
+                        <label>Unidad</label>
+                        <select id="tipo_unidad" required>
+                            <option value="Camioneta Granel">Camioneta Granel</option>
+                            <option value="Camioneta Palletizada">Camioneta Palletizada</option>
+                            <option value="Torthon Caja Seca">Torthon Caja Seca</option>
+                            <option value="Torthon Plataforma">Torthon Plataforma</option>
+                            <option value="Trailer Plataforma">Trailer Plataforma</option>
+                            <option value="Trailer Caja Seca">Trailer Caja Seca</option>
+                            <option value="Contenedor Granel">Contenedor Granel</option>
+                            <option value="Contenedor Palletizado">Contenedor Palletizado</option>
+                        </select>
+                    </div>
+                    <div class="grupo-form">
+                        <label>Categoría / Área de Destino</label>
+                        <select id="categoria" required>
+                            <option value="PISO">Pisos y Recubrimientos</option>
+                            <option value="BAÑO">Baños y Sanitarios</option>
+                            <option value="GRIFERIA">Grifería y Accesorios</option>
+                            <option value="GENERAL">Carga General / Mixta</option>
+                        </select>
+                    </div>
+                    <div class="grupo-form">
+                        <label>Proveedor / Fabricante</label>
+                        <select id="proveedor" required>
+                            <option value="">Selecciona un Proveedor...</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="fila-form">
+                    <div class="grupo-form">
+                        <label>Placas</label>
+                        <input type="text" id="placas" required>
+                    </div>
+                    <div class="grupo-form">
+                        <label>Tipo de Carga</label>
+                        <select id="carga" required disabled>
+                            <option value="">Se define automáticamente...</option>
+                            <option value="Granel">Granel</option>
+                            <option value="Palletizado">Palletizado</option>
+                        </select>
+                        <small>Se asigna automáticamente según el tipo de unidad.</small>
+                    </div>
+                    <div class="grupo-form">
+                        <label>Cantidad</label>
+                        <input type="text" id="cantidad">
+                    </div>
+                </div>
+
+                <div class="fila-form">
+                    <div class="grupo-form">
+                        <label>Llegada</label>
+                        <select id="tipo_llegada">
+                            <option value="No Citado">Sin Cita</option>
+                            <option value="Citado">Con Cita</option>
+                        </select>
+                    </div>
+                    <div class="grupo-form">
+                        <label>Hora Cita (Opcional)</label>
+                        <input type="datetime-local" id="hora_cita">
+                    </div>
+                    <div class="grupo-form">
+                        <label>Observaciones de Caseta</label>
+                        <textarea id="observaciones" rows="1"></textarea>
+                    </div>
+                </div>
+
+                <div class="acciones-form">
+                    <button type="submit" class="btn-enviar" id="btn-guardar">Registrar Entrada a Patio</button>
+                    <button type="button" class="btn-cancelar" id="btn-cancelar" onclick="cerrarModal()">Cancelar</button>
+                </div>
+            </form>
+            <div class="mensaje-alerta" id="mensaje-exito">¡Operación exitosa!</div>
+        </div>
+    </div>
+
+    <div class="filtros-contenedor">
+        <h3>Unidades en Patio e Historial</h3>
+        <div class="filtros-grupo">
+            <input type="text" id="busquedaGlobalCaseta" oninput="cargarTabla()" placeholder="🔍 Buscar proveedor, operador...">
+            <select id="filtroEstadoCaseta" onchange="cargarTabla()">
+                <option value="todas">Todas</option>
+                <option value="activas">Activas (Espera/Andén)</option>
+                <option value="programadas">Próximas Citas (Bookings)</option>
+                <option value="concluidas">Finalizadas (Historial)</option>
+            </select>
+            <select id="filtroFechaCaseta" onchange="cargarTabla()">
+                <option value="todos">Todas las fechas</option>
+                <option value="hoy">Solo de Hoy</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="tabla-contenedor">
+        <table>
+            <thead>
+                <tr>
+                    <th>Operador</th>
+                    <th>Unidad</th>
+                    <th>Proveedor</th>
+                    <th>Carga</th>
+                    <th>Cita / Llegada</th>
+                    <th>Estado</th>
+                    <th>Acción</th>
+                </tr>
+            </thead>
+            <tbody id="tabla-recepcion"></tbody>
+        </table>
+    </div>
+</main>
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="/js/shared-config.js"></script>
+<script src="/js/shared-ui-config.js"></script>
+<script src="/js/shared-status-config.js"></script>
+<script src="/js/navbar.js"></script>
+<script src="/js/toast.js"></script>
+<script src="/js/recepcion.js"></script>
+</body>
+</html>

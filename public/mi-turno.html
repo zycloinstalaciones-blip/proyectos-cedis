@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Turno | Azulemex</title>
+    <link rel="stylesheet" href="/css/toast.css">
+    <link rel="stylesheet" href="/css/mi-turno.css">
+    <link rel="shortcut icon" href="/img/azulemex-logo-sinfondo.png" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<main class="mi-turno-main">
+
+    <!-- HEADER CON LOGO -->
+    <div class="header-logo-section">
+        <img src="/img/azulemex-nuevo-sf.png" alt="Azulemex" class="logo-principal">
+    </div>
+
+    <!-- SECCIÓN TÍTULO -->
+    <div class="header-titulo-section">
+        <h1 class="titulo-principal">Estado de mi turno</h1>
+        <p class="subtitulo-principal">Tu unidad aparecerá aquí y se actualizará automáticamente cuando cambie su estado.</p>
+    </div>
+
+    <!-- SECCIÓN BUSCADOR -->
+    <div class="buscador-section">
+        <div class="buscador-card">
+            <label class="buscador-titulo">Buscar turno</label>
+            <div class="buscador-input-grupo">
+                <input type="text" id="folioInput" placeholder="Folio o placas" autocomplete="off">
+                <button id="btnBuscarTurno" class="btn-buscar">Buscar</button>
+            </div>
+            <p class="buscador-ayuda">Si vienes desde el registro, el sistema puede abrir tu turno automáticamente.</p>
+        </div>
+    </div>
+
+    <!-- CONTENEDOR PRINCIPAL DE TURNO -->
+    <div class="turno-contenedor">
+
+        <!-- ESTADO GENERAL -->
+        <section id="estadoGeneralCard" class="estado-general-card hidden">
+            <div class="estado-pill-wrap">
+                <span class="estado-pill" id="estadoPill">EN ESPERA</span>
+            </div>
+            <div class="estado-mensaje" id="estadoMensaje">Tu registro fue localizado correctamente.</div>
+        </section>
+
+        <!-- DETALLE DEL TURNO -->
+        <section id="turnoDetalle" class="turno-detalle hidden">
+            <div class="detalle-grid">
+
+                <!-- SEGUIMIENTO -->
+                <article class="detalle-card estado-card">
+                    <div class="card-title">Seguimiento</div>
+
+                    <div class="timeline-steps" id="timelineSteps">
+                        <div class="timeline-step" data-step="PROGRAMADO">
+                            <span class="step-dot"></span>
+                            <span class="step-label">Registrado</span>
+                        </div>
+                        <div class="timeline-step" data-step="ESPERA">
+                            <span class="step-dot"></span>
+                            <span class="step-label">En espera</span>
+                        </div>
+                        <div class="timeline-step" data-step="PROXIMO">
+                            <span class="step-dot"></span>
+                            <span class="step-label">Próximo a andén</span>
+                        </div>
+                        <div class="timeline-step" data-step="DESCARGA">
+                            <span class="step-dot"></span>
+                            <span class="step-label">En descarga</span>
+                        </div>
+                        <div class="timeline-step" data-step="FINALIZADO">
+                            <span class="step-dot"></span>
+                            <span class="step-label">Finalizado</span>
+                        </div>
+                    </div>
+
+                    <div class="anden-highlight" id="andenHighlight">
+                        <span class="anden-label">Andén asignado</span>
+                        <span class="anden-value" id="andenValue">Sin asignar</span>
+                    </div>
+                </article>
+
+                <!-- DATOS DE LA UNIDAD -->
+                <article class="detalle-card datos-card">
+                    <div class="card-title">Datos de la unidad</div>
+                    <div class="datos-grid">
+                        <div class="dato-box">
+                            <span class="dato-label">Folio</span>
+                            <span class="dato-value" id="datoFolio">-</span>
+                        </div>
+                        <div class="dato-box">
+                            <span class="dato-label">Placas</span>
+                            <span class="dato-value" id="datoPlacas">-</span>
+                        </div>
+                        <div class="dato-box">
+                            <span class="dato-label">Operador</span>
+                            <span class="dato-value" id="datoOperador">-</span>
+                        </div>
+                        <div class="dato-box">
+                            <span class="dato-label">Proveedor</span>
+                            <span class="dato-value" id="datoProveedor">-</span>
+                        </div>
+                        <div class="dato-box">
+                            <span class="dato-label">Unidad</span>
+                            <span class="dato-value" id="datoUnidad">-</span>
+                        </div>
+                        <div class="dato-box">
+                            <span class="dato-label">Área</span>
+                            <span class="dato-value" id="datoCategoria">-</span>
+                        </div>
+                        <div class="dato-box dato-full">
+                            <span class="dato-label">Cantidad</span>
+                            <span class="dato-value" id="datoCantidad">-</span>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- TIEMPOS -->
+                <article class="detalle-card tiempos-card">
+                    <div class="card-title">Tiempos</div>
+                    <div class="datos-grid">
+                        <div class="dato-box">
+                            <span class="dato-label">Hora cita</span>
+                            <span class="dato-value" id="datoCita">-</span>
+                        </div>
+                        <div class="dato-box">
+                            <span class="dato-label">Hora llegada</span>
+                            <span class="dato-value" id="datoLlegada">-</span>
+                        </div>
+                        <div class="dato-box">
+                            <span class="dato-label">Inicio descarga</span>
+                            <span class="dato-value" id="datoInicio">-</span>
+                        </div>
+                        <div class="dato-box">
+                            <span class="dato-label">Fin descarga</span>
+                            <span class="dato-value" id="datoFin">-</span>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <!-- TURNO VACÍO -->
+        <section id="turnoVacio" class="turno-vacio-card">
+            <div class="vacio-icon">🚛</div>
+            <div class="vacio-title">Consulta tu turno</div>
+            <div class="vacio-text">Escribe tu folio o placas para ver el estatus de tu unidad. Si vienes del registro, el sistema puede abrir tu seguimiento automáticamente.</div>
+        </section>
+
+    </div>
+
+</main>
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="/js/toast.js"></script>
+<script src="/js/mi-turno.js"></script>
+</body>
+</html>

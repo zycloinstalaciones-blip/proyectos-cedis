@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Calendario de Entregas | Programación Semanal</title>
+    <!-- CSS -->
+    <link rel="stylesheet" href="/css/admin.css">
+    <link rel="stylesheet" href="/css/navbar.css">
+    <link rel="stylesheet" href="/css/toast.css">
+    <!-- Fuente / favicon -->
+    <link rel="shortcut icon" href="img/azulemex-logo-sinfondo.png" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Calendar -->
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/index.global.min.js'></script>
+    <script src='https://cdn.jsdelivr.net/npm/@fullcalendar/core@6.1.10/locales/es.global.min.js'></script>
+
+    <style>
+        /* Ajustes visuales para empotrar el calendario limpiamente */
+        #calendar-container {
+            background: white; padding: 25px; border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05); margin-top: 20px;
+            font-family: 'Poppins', sans-serif;
+        }
+        .fc-event { border: none !important; border-radius: 4px !important; cursor: pointer; }
+        .fc-toolbar-title { color: #005baa; font-weight: 700; text-transform: capitalize; }
+        .fc-col-header-cell-cushion { color: #333; font-weight: 600; text-transform: capitalize;}
+        
+        /* Botones del calendario */
+        .fc-button-primary { background-color: #fff !important; border: 1px solid #ccc !important; color: #333 !important; }
+        .fc-button-active { background-color: #005baa !important; color: white !important; border-color: #005baa !important; }
+    </style>
+    
+</head>
+<body>
+
+    <!-- ================= NAVBAR ================= -->
+<header class="navbar">
+  <div class="container nav">
+
+    <!-- Logo -->
+    <div class="nav-logo">
+      <img src="/img/azulemex-nuevo-sf.png" alt="Azulemex" class="logoimg">
+    </div>
+
+    <!-- Texto central -->
+    <div class="nav-title-confirmacion">
+      <span class="nav-title-main" data-nav-title>Sistema Azulemex</span>
+      <span class="nav-title-sub">Visualiza la logística de todas las unidades agendadas</span>
+    </div>
+    <!-- Botón hamburguesa -->
+    <button class="hamburger" id="menuToggle" aria-label="Menú" data-usuario-privado>
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </div>
+</header>
+
+<!-- Overlay -->
+<div class="overlay" id="overlay"></div>
+
+<!-- Menú lateral derecho -->
+<aside class="side-menu right" id="sideMenu">
+  <div class="menu-header">
+    <h3>Menú</h3>
+    <button class="close-btn" id="closeMenu2">✕</button>
+  </div>
+
+  <div class="menu-user-block" data-usuario-privado>
+    <span class="menu-user-name" data-usuario-nombre>Usuario</span>
+    <span class="menu-user-role" data-usuario-puesto>Puesto</span>
+  </div>
+
+  <nav class="menu-links" id="menuLinks">
+    <!-- JS construye links según rol -->
+  </nav>
+
+  <div class="menu-footer" data-usuario-privado>
+    <button class="logout-btn" type="button" id="logoutBtn">Cerrar sesión</button>
+  </div>
+</aside>
+
+    <main class="dashboard-container" style="max-width: 1300px; margin: 20px auto; padding: 0 20px;">
+        <div class="page-header" style="text-align: center;">
+
+        </div>
+
+        <div id="calendar-container">
+            <div id='calendar'></div>
+        </div>
+    </main>
+
+    <div id="modalDetalle" class="modal-overlay" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.6); z-index:9999; justify-content:center; align-items:center;">
+        <div style="background:white; padding:0; border-radius:10px; width:450px; max-width:90%; overflow:hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.3);">
+            
+            <div style="background:#f4f6f8; padding:20px; border-bottom:1px solid #eee; display:flex; justify-content:space-between;">
+                <div>
+                    <p style="margin:0; font-size:0.8rem; color:#666; font-weight:bold;" id="md-folio">FOLIO: ---</p>
+                    <h3 id="md-titulo" style="margin:5px 0 0 0; color:#222;">Proveedor - Unidad</h3>
+                </div>
+            </div>
+
+            <div style="padding:20px; color:#444; font-size:0.95rem;">
+                <p style="margin:0 0 15px 0;"><strong>🕒 Cita / Llegada:</strong> <span id="md-fecha"></span></p>
+                <p style="margin:0 0 15px 0;"><strong>👤 Operador:</strong> <span id="md-operador"></span></p>
+                <p style="margin:0 0 15px 0;"><strong>📞 Teléfono:</strong> <span id="md-telefono"></span></p>
+                <p style="margin:0 0 15px 0;"><strong>🚛 Placas:</strong> <span style="font-family:monospace; color:#005baa; font-weight:bold;" id="md-placas"></span></p>
+                <p style="margin:0 0 15px 0;"><strong>📦 Carga:</strong> <span id="md-carga"></span></p>
+                <p style="margin:0;"><strong>Estatus:</strong> <span id="md-estado" style="padding:3px 8px; border-radius:4px; font-weight:bold; font-size:0.8rem;"></span></p>
+            </div>
+
+            <div style="padding:15px 20px; text-align:right; background:#fdfdfd; border-top:1px solid #eee;">
+                <button onclick="document.getElementById('modalDetalle').style.display='none'" style="background:#6c757d; color:white; border:none; padding:8px 15px; border-radius:6px; cursor:pointer; font-family:'Poppins';">Cerrar Detalle</button>
+            </div>
+        </div>
+    </div>
+    <script src="/js/navbar.js"></script>
+    <script src="/js/calendario.js"></script>
+</body>
+</html>
