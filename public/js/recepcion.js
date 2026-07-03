@@ -251,39 +251,25 @@ document.getElementById('form-registro').addEventListener('submit', async (e) =>
     const carga = configUnidad ? configUnidad.carga : '';
 
     if (!categoria) {
-        alert("❌ Debes seleccionar una Categoría / Área de Destino");
-        return;
-    }
+        AzToast.warning("Debes seleccionar una Categoría / Área de Destino.", { title: "Dato obligatorio" })
 
     if (!proveedor) {
-        alert("❌ Debes seleccionar un Proveedor");
-        return;
-    }
+        AzToast.warning("Debes seleccionar un Proveedor.", { title: "Dato obligatorio" })
 
     if (!tipoUnidad) {
-        alert("❌ Debes seleccionar un Tipo de Unidad");
-        return;
-    }
+        AzToast.warning("Debes seleccionar un Tipo de Unidad.", { title: "Dato obligatorio" })
 
     if (!configUnidad) {
-        alert("❌ El tipo de unidad seleccionado no tiene configuración válida.");
-        return;
-    }
+        AzToast.error("El tipo de unidad seleccionado no tiene configuración válida.", { title: "Configuración inválida" })
 
     if (!placas) {
-        alert("❌ Debes ingresar las Placas");
-        return;
-    }
+        AzToast.warning("Debes ingresar las Placas.", { title: "Dato obligatorio" })
 
     if (!nombre_operador) {
-        alert("❌ Debes ingresar el Nombre del Operador");
-        return;
-    }
+        AzToast.warning("Debes ingresar el Nombre del Operador.", { title: "Dato obligatorio" })
 
     if (!carga) {
-        alert("❌ No se pudo definir automáticamente el tipo de carga.");
-        return;
-    }
+        AzToast.error("No se pudo definir automáticamente el tipo de carga.", { title: "Error de configuración" })
 
     const id = document.getElementById('turno-id').value;
     const btn = document.getElementById('btn-guardar');
@@ -344,7 +330,7 @@ document.getElementById('form-registro').addEventListener('submit', async (e) =>
         }
     } catch (error) {
         console.error("Error:", error);
-        alert("Error de conexión.");
+        AzToast.error("Error de conexión con el servidor.", { title: "Error" })
     } finally {
         btn.disabled = false;
         if (document.getElementById('turno-id').value) btn.innerText = "Guardar Cambios";
@@ -354,9 +340,14 @@ document.getElementById('form-registro').addEventListener('submit', async (e) =>
 
 // ================= ELIMINAR REGISTROS =================
 window.eliminarRegistro = async function(id) {
-    if (!confirm("⚠️ ¿Estás seguro de que deseas ELIMINAR este registro por completo?\n\nEsta acción borrará la unidad de la base de datos y no se puede deshacer.")) {
-        return;
-    }
+    const confirmar = await AzConfirm({
+    title: "Eliminar registro",
+    message: "¿Estás seguro de que deseas ELIMINAR este registro?\n\nEsta acción borrará la unidad de la base de datos y no se puede deshacer.",
+    confirmText: "Sí, eliminar",
+    cancelText: "Cancelar",
+    type: "warning"
+});
+if (!confirmar) return;
 
     try {
         const respuesta = await fetch(`/api/eliminar-turno/${id}`, {
@@ -366,12 +357,11 @@ window.eliminarRegistro = async function(id) {
         if (respuesta.ok) {
             console.log("Registro eliminado correctamente.");
         } else {
-            alert("Hubo un error al intentar eliminar el registro.");
-        }
+            AzToast.error("Hubo un error al intentar eliminar el registro.", { title: "Error" }
+    )
     } catch (error) {
         console.error("Error al eliminar:", error);
-        alert("Fallo de conexión con el servidor al intentar borrar.");
-    }
+        AzToast.error("Fallo de conexión con el servidor al intentar borrar.", { title: "Error de conexión" })
 };
 
 cargarTabla();
