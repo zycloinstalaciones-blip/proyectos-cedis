@@ -1,5 +1,5 @@
 (function () {
-    const CONFIG_UNIDADES = {
+    let CONFIG_UNIDADES = {
         "Camioneta Granel": {
             tamano_unidad: "CHICA",
             prioridad: "NORMAL",
