@@ -1186,6 +1186,10 @@ app.get('/api/fabricantes', (req, res) => {
     res.json(fabricantes);
 });
 
+app.get('/api/config/unidades', (req, res) => {
+    res.json(CONFIG_UNIDADES);
+});
+
 // ======================================================
 // API: ACTUALIZAR TURNO
 // ======================================================
