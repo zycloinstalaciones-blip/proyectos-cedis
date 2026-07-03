@@ -52,6 +52,16 @@
     let cacheFabricantes = null;
     let promesaFabricantes = null;
 
+    fetch('/api/config/unidades')
+    .then(r => r.ok ? r.json() : null)
+    .then(data => {
+        if (data && typeof data === 'object' && Object.keys(data).length > 0) {
+            CONFIG_UNIDADES = data;
+            if (window.AzUtils) window.AzUtils.CONFIG_UNIDADES = data;
+        }
+    })
+    .catch(() => {});
+
     function getUnitConfig(tipoUnidad) {
         return CONFIG_UNIDADES[tipoUnidad] || null;
     }
